@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<style>body{margin:0;background:#0e1416 !important;font-family:Inter,system-ui,sans-serif;color:#e9e9ed}a{color:#8fe0da}a:hover{color:#c2f1ed}.dv-turn{padding:44px 48px 36px;border-bottom:1px solid rgba(233,233,237,.08);scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#35b5b0;color:#12191b;border-radius:4px;text-decoration:none}.dv-tname{font:500 14px/1.2 Inter,system-ui,sans-serif;color:#e9e9ed}.dv-opts{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:10px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(233,233,237,.1);color:#e9e9ed;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 Inter,system-ui,sans-serif;color:rgba(233,233,237,.6);max-width:380px}.dv-opt:target .dv-oid{background:#35b5b0;color:#12191b}.dv-next{margin:26px 0 0;font:12.5px/1.5 Inter,system-ui,sans-serif;color:rgba(233,233,237,.55)}</style>
+</helmet>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Teal palette, dark and light. Switch on the login screen or in Me → Appearance. Status colours are stronger.</span></div>
+<div class="dv-opts">
+<div class="dv-opt" id="2a"><div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Employee home, dark</div><dc-import name="GPS App" as="GPS-E014" theme="dark" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="2b"><div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Employee home, light</div><dc-import name="GPS App" as="GPS-E014" theme="light" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="2c"><div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Director control room, light</div><dc-import name="GPS App" as="pradkum3639" theme="light" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="2d"><div class="dv-olabel"><a class="dv-oid" href="#2d">2d</a>Task + timeline, light</div><dc-import name="GPS App" as="GPS-E014" screen="task" task-id="T-1039" theme="light" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="2e"><div class="dv-olabel"><a class="dv-oid" href="#2e">2e</a>Login, light</div><dc-import name="GPS App" theme="light" hint-size="380px,800px"></dc-import></div>
+</div>
+<p class="dv-next">Try next: "make light the default" · "use the deeper #1F8A8A teal in dark mode too" · "make the accent greener"</p>
+</section>
+
+<section class="dv-turn" id="t1">
+<div style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;max-width:1240px;margin-bottom:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8fe0da">Green Printing Solution Pvt Ltd · Mobile v1</div>
+<h1 style="font-size:40px;font-weight:500;letter-spacing:-.02em;margin:0;line-height:1.1">GPS Operations — mobile app</h1>
+<p style="font-size:15px;line-height:1.55;color:rgba(233,233,237,.72);margin:0;max-width:640px;text-wrap:pretty">One app for all roles. What you see depends on who logs in: employees get "what do I do next", department heads get approvals and their team, the Director gets the control room. Every phone below is clickable and works on its own. The live prototype at the bottom saves its data on this device.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;font-size:13px;line-height:1.5;color:rgba(233,233,237,.72)">
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(233,233,237,.5)">Assumptions</div>
+<div>• Nocturne dark theme, tuned for Android. Touch targets are at least 44px.</div>
+<div>• The <b style="font-weight:500;color:#e9e9ed">Director account has a private ID</b>. It needs its password plus a 6-digit code (2FA). Department heads also use 2FA. After 5 wrong passwords, login locks for 60s. The Director is logged out after 15 minutes idle.</div>
+<div>• Timelines are written by the system and can't be edited. Submitting work is not approval: work goes Working → Submitted → Approved or Correction.</div>
+<div>• Staff and work data exports as a multi-sheet Excel file from Me → Data &amp; records.</div>
+<div>• Tap EN / हिं anywhere to switch between English and Hindi.</div>
+</div>
+</div>
+
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Three home-screen directions: logged in as Rahul Verma (DTF Operator)</span></div>
+<div class="dv-opts">
+<div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Focus: one "do this next" card with a big action, then the rest of today. Simplest for the shop floor.</div><dc-import name="GPS App" as="GPS-E014" variant="focus" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1b"><div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Ledger: a dense list filtered by status. Fastest when someone has many tasks.</div><dc-import name="GPS App" as="GPS-E014" variant="ledger" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1c"><div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Board: swipeable columns, To do → Completed. Matches the spec's column view.</div><dc-import name="GPS App" as="GPS-E014" variant="board" hint-size="380px,800px"></dc-import></div>
+</div>
+
+<div class="dv-thd" style="margin-top:56px"><span class="dv-tname">Flow: every screen (direction <a class="dv-oid" href="#1a">1a</a>)</span></div>
+<div class="dv-opts">
+<div class="dv-opt" id="1d"><div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Login</div><dc-import name="GPS App" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1e"><div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a>2-step verification (Director / Heads)</div><dc-import name="GPS App" screen="mfa" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1f"><div class="dv-olabel"><a class="dv-oid" href="#1f">1f</a>Task detail + permanent timeline</div><dc-import name="GPS App" as="GPS-E014" screen="task" task-id="T-1042" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1g"><div class="dv-olabel"><a class="dv-oid" href="#1g">1g</a>Report blocker (reason + explanation required)</div><dc-import name="GPS App" as="GPS-E014" screen="task" task-id="T-1042" sheet="blocker" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1h"><div class="dv-olabel"><a class="dv-oid" href="#1h">1h</a>Upload proof (camera / files)</div><dc-import name="GPS App" as="GPS-E014" screen="proof" task-id="T-1042" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1i"><div class="dv-olabel"><a class="dv-oid" href="#1i">1i</a>End-of-day report, auto-filled from activity</div><dc-import name="GPS App" as="GPS-E014" screen="eod" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1j"><div class="dv-olabel"><a class="dv-oid" href="#1j">1j</a>Job card: production progress + 11 stages</div><dc-import name="GPS App" as="GPS-H002" screen="job" job-id="GPS-2026-00017" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1k"><div class="dv-olabel"><a class="dv-oid" href="#1k">1k</a>QC entry (Farhan, QC Inspector)</div><dc-import name="GPS App" as="GPS-E030" screen="qc" job-id="GPS-2026-00021" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1l"><div class="dv-olabel"><a class="dv-oid" href="#1l">1l</a>Approvals queue (Sunita, Head of Production)</div><dc-import name="GPS App" as="GPS-H002" screen="approvals" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1m"><div class="dv-olabel"><a class="dv-oid" href="#1m">1m</a>Notifications</div><dc-import name="GPS App" as="GPS-E014" screen="inbox" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1n"><div class="dv-olabel"><a class="dv-oid" href="#1n">1n</a>Announcements with acknowledgement tracking (Director)</div><dc-import name="GPS App" as="pradkum3639" screen="inbox" inbox-tab="anns" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1o"><div class="dv-olabel"><a class="dv-oid" href="#1o">1o</a>Director morning control room</div><dc-import name="GPS App" as="pradkum3639" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1p"><div class="dv-olabel"><a class="dv-oid" href="#1p">1p</a>Director evening report</div><dc-import name="GPS App" as="pradkum3639" mgmt-mode="evening" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1q"><div class="dv-olabel"><a class="dv-oid" href="#1q">1q</a>Profile, Excel export, sessions, audit log</div><dc-import name="GPS App" as="pradkum3639" screen="profile" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1r"><div class="dv-olabel"><a class="dv-oid" href="#1r">1r</a>Hindi</div><dc-import name="GPS App" as="GPS-E014" lang="hi" hint-size="380px,800px"></dc-import></div>
+</div>
+
+<div class="dv-thd" style="margin-top:56px"><span class="dv-tname">Live prototype: log in for real (data saves on this device)</span></div>
+<div class="dv-opts">
+<div class="dv-opt" id="1s"><div class="dv-olabel"><a class="dv-oid" href="#1s">1s</a>Android. Try GPS-E014 / demo1234, then GPS-H002 to approve the same work.</div><dc-import name="GPS App" persist="{{ true }}" variant="focus" hint-size="380px,800px"></dc-import></div>
+<div class="dv-opt" id="1t"><div class="dv-olabel"><a class="dv-oid" href="#1t">1t</a>iPhone (starts fresh each time)</div><dc-import name="GPS App" platform="ios" variant="focus" hint-size="380px,800px"></dc-import></div>
+</div>
+<p class="dv-next">Try next: "go with <a class="dv-oid" href="#1a">1a</a> but add the Board columns as a toggle" · "design the desktop Director dashboard" · "add attendance / QR stage scanning"</p>
+</section>
+</x-dc>
+</body>
+</html>

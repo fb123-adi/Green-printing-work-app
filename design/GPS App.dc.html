@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="nocturne.css">
+<script src="_ds/nocturne-b04b9625-ccfb-4f52-b322-966a4e75296a/_ds_bundle.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600&display=swap">
+<style>a{color:var(--color-accent-300)}a:hover{color:var(--color-accent-200)}[data-theme=dark]{--color-bg:#12191b;--color-surface:#1b2427;--color-text:#e5ecec;--color-divider:color-mix(in srgb,#e5ecec 16%,transparent);--color-accent:#35b5b0;--color-accent-100:#e6fbf9;--color-accent-200:#c2f1ed;--color-accent-300:#8fe0da;--color-accent-400:#58c9c3;--color-accent-500:#2fa9a5;--color-accent-600:#1f8a8a;--color-accent-700:#176c6d;--color-accent-800:#114f50;--color-accent-900:#0c3435;--line:#2f3b3e;--line2:#46555a;--tint:#0e2f31;--tint2:#134447;--tint3:#1d6466;--toast:#26343a;--knob:#e5ecec;--muted2:#9fb0b3;--bad:oklch(0.70 0.19 25);--bad-text:oklch(0.82 0.12 25);--warn:oklch(0.80 0.16 72);--ok:oklch(0.76 0.15 155);--ok-text:oklch(0.86 0.10 155)}[data-theme=light]{--color-bg:#f3f6f6;--color-surface:#fcfdfd;--color-text:#132022;--color-divider:color-mix(in srgb,#132022 16%,transparent);--color-accent:#1f8a8a;--color-accent-100:#0a2e2f;--color-accent-200:#0f4546;--color-accent-300:#146465;--color-accent-400:#1a7a7a;--color-accent-500:#1f8a8a;--color-accent-600:#2fa9a5;--color-accent-700:#8fd6d2;--color-accent-800:#c9ecea;--color-accent-900:#e6f6f5;--line:#d8e1e2;--line2:#b9c8ca;--tint:#e3f3f2;--tint2:#cdeae8;--tint3:#8fcfcb;--toast:#fcfdfd;--knob:#fcfdfd;--muted2:#5d6f72;--bad:oklch(0.57 0.21 25);--bad-text:oklch(0.47 0.18 25);--warn:oklch(0.64 0.16 62);--ok:oklch(0.56 0.14 155);--ok-text:oklch(0.44 0.12 155)}@keyframes gpsToast{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}</style>
+</helmet>
+<div style="width:{{ fW }};height:{{ fH }};padding:{{ fPad }};border-radius:{{ fRad }};background:#0c0d14;box-shadow:{{ fShadow }};box-sizing:border-box;font-family:Inter,'Noto Sans Devanagari',system-ui,sans-serif;color:var(--color-text);font-size:14px;line-height:1.45;text-align:left">
+<div data-theme="{{ theme }}" style="position:relative;width:{{ iW }};height:{{ iH }};border-radius:{{ iRad }};overflow:hidden;color:var(--color-text);background:radial-gradient(120% 50% at 0% 0%, var(--tint) 0%, transparent 60%), var(--color-bg);display:flex;flex-direction:column">
+
+<sc-if value="{{ isAndroid }}" hint-placeholder-val="{{ true }}">
+<div style="height:32px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 22px;font-size:12.5px;font-weight:500;position:relative">
+<span>{{ clock }}</span>
+<div style="position:absolute;left:50%;top:9px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:#0c0d14"></div>
+<div style="display:flex;gap:5px;font-size:14px"><i class="ph-fill ph-wifi-high"></i><i class="ph-fill ph-cell-signal-full"></i><i class="ph-fill ph-battery-high"></i></div>
+</div>
+</sc-if>
+<sc-if value="{{ isIos }}" hint-placeholder-val="{{ false }}">
+<div style="height:48px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:4px 30px 0 34px;font-size:14px;font-weight:600;position:relative">
+<span>{{ clock }}</span>
+<div style="position:absolute;left:50%;top:10px;width:104px;height:30px;margin-left:-52px;border-radius:20px;background:#0c0d14"></div>
+<div style="display:flex;gap:5px;font-size:15px"><i class="ph-fill ph-cell-signal-full"></i><i class="ph-fill ph-wifi-high"></i><i class="ph-fill ph-battery-high"></i></div>
+</div>
+</sc-if>
+
+<div ref="{{ scrollRef }}" style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;position:relative">
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
+<div style="min-height:100%;display:flex;flex-direction:column;padding:18px 22px 20px;gap:16px;box-sizing:border-box">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div style="display:flex;align-items:center;gap:10px">
+<div style="width:38px;height:38px;border-radius:10px;border:1px solid var(--color-accent);display:grid;place-items:center;font-size:11.5px;font-weight:600;letter-spacing:.06em;color:var(--color-accent-300);box-shadow:0 0 24px -6px var(--color-accent)">GPS</div>
+<div style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;line-height:1.35;color:color-mix(in srgb, var(--color-text) 62%, transparent)">Green Printing<br>Solution Pvt Ltd</div>
+</div>
+<div style="display:flex;gap:6px"><button onClick="{{ toggleTheme }}" style="width:34px;height:34px;border-radius:20px;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font-size:17px;cursor:pointer;display:grid;place-items:center"><i class="ph {{ themeIcon }}"></i></button><button onClick="{{ toggleLang }}" style="height:34px;padding:0 12px;border-radius:17px;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;font-size:12.5px;display:flex;gap:6px;align-items:center;cursor:pointer"><i class="ph ph-translate"></i>{{ t.langSwitch }}</button></div>
+</div>
+<div style="margin-top:34px">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-300)">{{ t.subtitle }}</div>
+<h1 style="font-size:34px;margin:8px 0 6px;letter-spacing:-.02em">GPS Operations</h1>
+<div style="font-size:15px;color:color-mix(in srgb, var(--color-text) 70%, transparent)">{{ t.tagline }}</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;margin-top:10px">
+<label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 70%, transparent)">{{ t.empId }}</span>
+<input value="{{ loginId }}" onChange="{{ onLoginId }}" autocomplete="username" placeholder="GPS-E014" style="height:48px;padding:0 14px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:15px;outline:none" style-focus="border-color:var(--color-accent)"></label>
+<label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 70%, transparent)">{{ t.password }}</span>
+<div style="position:relative;display:flex"><input type="{{ pwType }}" value="{{ loginPw }}" onChange="{{ onLoginPw }}" onKeyDown="{{ onPwKey }}" autocomplete="current-password" style="flex:1;height:48px;padding:0 48px 0 14px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:15px;outline:none;min-width:0" style-focus="border-color:var(--color-accent)"><button onClick="{{ togglePw }}" style="position:absolute;right:2px;top:2px;width:44px;height:44px;border:none;background:transparent;color:color-mix(in srgb, var(--color-text) 60%, transparent);font-size:19px;cursor:pointer"><i class="ph {{ pwIcon }}"></i></button></div></label>
+<div style="display:flex;justify-content:space-between;align-items:center">
+<button onClick="{{ toggleRemember }}" style="display:flex;align-items:center;gap:8px;border:none;background:transparent;color:var(--color-text);font:inherit;font-size:13px;padding:6px 0;cursor:pointer"><span style="width:18px;height:18px;border-radius:5px;border:1.5px solid {{ rememberBorder }};display:grid;place-items:center;font-size:12px;color:var(--color-accent-300)"><i class="ph {{ rememberIcon }}"></i></span>{{ t.remember }}</button>
+<button onClick="{{ onForgot }}" style="border:none;background:transparent;color:var(--color-accent-300);font:inherit;font-size:13px;cursor:pointer;padding:6px 0">{{ t.forgot }}</button>
+</div>
+<sc-if value="{{ loginErr }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border-radius:10px;background:color-mix(in srgb, var(--bad) 14%, transparent);color:var(--bad-text);font-size:13px"><i class="ph ph-warning-circle" style="font-size:17px;margin-top:1px"></i><span>{{ loginErr }}</span></div></sc-if>
+<button onClick="{{ doLogin }}" disabled="{{ loginDisabled }}" style="height:50px;border-radius:10px;border:1px solid var(--color-accent);background:transparent;color:var(--color-accent-200);font:inherit;font-size:15px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;box-shadow:0 0 30px -12px var(--color-accent)" style-hover="background:color-mix(in srgb, var(--color-accent) 12%, transparent)" style-active="background:color-mix(in srgb, var(--color-accent) 22%, transparent)"><i class="ph ph-sign-in"></i>{{ loginLabel }}</button>
+</div>
+<div style="margin-top:6px;display:flex;flex-direction:column;gap:6px">
+<div style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 50%, transparent)">{{ t.demo }}</div>
+<sc-for list="{{ demoAccounts }}" as="d" hint-placeholder-count="3">
+<button onClick="{{ d.fill }}" style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:10px;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;font-size:13px;cursor:pointer;text-align:left" style-hover="background:color-mix(in srgb, var(--color-text) 6%, transparent)"><span>{{ d.label }}</span><span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ d.id }}</span></button>
+</sc-for>
+<div style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 50%, transparent)">{{ t.demoNote }}</div>
+</div>
+<div style="margin-top:auto;display:flex;gap:6px;align-items:center;font-size:11px;color:color-mix(in srgb, var(--color-text) 50%, transparent)"><i class="ph ph-lock-simple"></i>{{ t.secure }}</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMfa }}" hint-placeholder-val="{{ false }}">
+<div style="padding:8px 22px 22px;display:flex;flex-direction:column;gap:16px">
+<button onClick="{{ cancelMfa }}" style="align-self:flex-start;width:44px;height:44px;margin-left:-12px;border:none;background:transparent;color:var(--color-text);font-size:22px;cursor:pointer"><i class="ph ph-arrow-left"></i></button>
+<div style="width:52px;height:52px;border-radius:14px;border:1px solid var(--color-accent);display:grid;place-items:center;font-size:26px;color:var(--color-accent-300);box-shadow:0 0 30px -8px var(--color-accent)"><i class="ph ph-shield-check"></i></div>
+<div><h2 style="font-size:24px;margin:0 0 6px">{{ t.mfaTitle }}</h2><div style="color:color-mix(in srgb, var(--color-text) 68%, transparent);font-size:14px">{{ t.mfaSub }} <span style="color:var(--color-text)">{{ mfaPhone }}</span></div></div>
+<div style="font-size:12px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ mfaFor }}</div>
+<input value="{{ mfaInput }}" onChange="{{ onMfa }}" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="••••••" style="height:60px;border-radius:12px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:500 28px/1 ui-monospace,Menlo,monospace;letter-spacing:.5em;text-align:center;outline:none;padding-left:.5em" style-focus="border-color:var(--color-accent)">
+<sc-if value="{{ mfaErr }}" hint-placeholder-val="{{ false }}"><div style="color:var(--bad-text);font-size:13px">{{ mfaErr }}</div></sc-if>
+<button onClick="{{ doVerify }}" style="height:50px;border-radius:10px;border:1px solid var(--color-accent);background:transparent;color:var(--color-accent-200);font:inherit;font-size:15px;font-weight:500;cursor:pointer" style-hover="background:color-mix(in srgb, var(--color-accent) 12%, transparent)">{{ t.verify }}</button>
+<button onClick="{{ resendMfa }}" style="border:none;background:transparent;color:var(--color-accent-300);font:inherit;font-size:13px;cursor:pointer;padding:8px">{{ t.resend }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isEmpHome }}" hint-placeholder-val="{{ false }}">
+<div style="padding:10px 18px 24px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+<div><div style="font-size:12px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ dateStr }}</div><div style="font-size:22px;font-weight:500;letter-spacing:-.01em;margin-top:2px">{{ greet }}</div></div>
+<div style="display:flex;gap:2px">
+<button onClick="{{ toggleLang }}" style="height:40px;padding:0 10px;border-radius:20px;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;font-size:12px;cursor:pointer">{{ t.langShort }}</button>
+<button onClick="{{ goInbox }}" style="position:relative;width:44px;height:40px;border:none;background:transparent;color:var(--color-text);font-size:22px;cursor:pointer"><i class="ph ph-bell"></i><sc-if value="{{ hasUnread }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:6px;right:9px;min-width:16px;height:16px;border-radius:8px;background:var(--bad);color:var(--color-bg);font-size:10px;font-weight:600;display:grid;place-items:center;padding:0 3px">{{ unread }}</span></sc-if></button>
+</div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<sc-for list="{{ empStats }}" as="st" hint-placeholder-count="3"><div style="display:flex;align-items:baseline;gap:6px;padding:6px 11px;border-radius:9px;background:var(--color-surface);box-shadow:0 0 0 1px var(--line);font-size:12px"><span style="font-size:16px;font-weight:500;color:{{ st.color }}">{{ st.value }}</span><span style="color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ st.label }}</span></div></sc-for>
+</div>
+
+<sc-if value="{{ vFocus }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ hasNext }}" hint-placeholder-val="{{ true }}">
+<div style="border-radius:16px;padding:16px;background:linear-gradient(160deg, var(--tint), var(--color-surface) 70%);box-shadow:0 0 0 1px var(--tint3),0 0 50px -18px var(--color-accent);display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;color:var(--color-accent-300)">{{ t.nextUp }}</span><span style="font-size:10.5px;font-weight:600;letter-spacing:.06em;padding:3px 8px;border-radius:6px;background:{{ next.prioBg }};color:{{ next.prioColor }}">{{ next.prio }}</span></div>
+<button onClick="{{ next.open }}" style="border:none;background:transparent;padding:0;text-align:left;color:var(--color-text);font:inherit;cursor:pointer"><div style="font-size:20px;font-weight:500;line-height:1.2;letter-spacing:-.01em;text-wrap:pretty">{{ next.title }}</div><div style="font-size:12.5px;margin-top:5px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ next.id }} · {{ next.jobLine }}</div></button>
+<div style="display:flex;justify-content:space-between;gap:10px;font-size:12.5px"><span style="flex:1;display:flex;gap:5px;align-items:center;min-width:0;color:{{ next.dueColor }}"><i class="ph ph-clock" style="flex:none"></i><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ next.due }}</span></span><span style="white-space:nowrap;flex:none;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ next.status }} · {{ next.pct }}</span></div>
+<div style="height:4px;border-radius:2px;background:var(--line);overflow:hidden"><div style="height:100%;width:{{ next.w }};background:var(--color-accent);border-radius:2px"></div></div>
+<button onClick="{{ nextPrimary.onClick }}" style="height:54px;margin-top:4px;border-radius:12px;border:1px solid var(--color-accent);background:color-mix(in srgb, var(--color-accent) 10%, transparent);color:var(--color-accent-100);font:inherit;font-size:16px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer" style-hover="background:color-mix(in srgb, var(--color-accent) 18%, transparent)" style-active="background:color-mix(in srgb, var(--color-accent) 28%, transparent)"><i class="ph {{ nextPrimary.icon }}" style="font-size:20px"></i>{{ nextPrimary.label }}</button>
+<sc-if value="{{ nextHasTools }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+<sc-for list="{{ nextTools }}" as="a" hint-placeholder-count="3"><button onClick="{{ a.onClick }}" style="height:62px;border-radius:12px;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;font-size:11.5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer" style-hover="background:color-mix(in srgb, var(--color-text) 7%, transparent)"><i class="ph {{ a.icon }}" style="font-size:20px;color:var(--color-accent-300)"></i>{{ a.label }}</button></sc-for>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ noNext }}" hint-placeholder-val="{{ false }}"><div style="padding:20px;border-radius:16px;background:var(--color-surface);box-shadow:0 0 0 1px var(--line);text-align:center;color:color-mix(in srgb, var(--color-text) 70%, transparent)"><i class="ph ph-check-circle" style="font-size:30px;color:var(--ok)"></i><div style="margin-top:6px">{{ t.allClear }}</div></div></sc-if>
+</sc-if>
+
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.deadlines }}</div>
+<div style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -18px;padding:0 18px">
+<sc-for list="{{ deadlineList }}" as="d" hint-placeholder-count="3"><button onClick="{{ d.open }}" style="flex:none;width:150px;padding:10px 12px;border-radius:12px;border:1px solid {{ d.border }};background:transparent;color:var(--color-text);font:inherit;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:3px" style-hover="background:color-mix(in srgb, var(--color-text) 5%, transparent)"><span style="font-size:15px;font-weight:500;color:{{ d.color }}">{{ d.time }}</span><span style="font-size:12px;line-height:1.3;color:color-mix(in srgb, var(--color-text) 72%, transparent);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ d.title }}</span></button></sc-for>
+</div>
+</div>
+
+<sc-if value="{{ vLedger }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.myWork }}</div>
+<div style="display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -18px;padding:0 18px">
+<sc-for list="{{ filterChips }}" as="c" hint-placeholder-count="5"><button onClick="{{ c.onClick }}" style="flex:none;height:36px;padding:0 12px;border-radius:18px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font:inherit;font-size:12.5px;display:flex;gap:6px;align-items:center;cursor:pointer">{{ c.label }}<span style="font-size:11px;opacity:.75">{{ c.count }}</span></button></sc-for>
+</div>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ ledgerTasks }}" as="k" hint-placeholder-count="4">
+<button onClick="{{ k.open }}" style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border:none;border-bottom:1px solid color-mix(in srgb, var(--color-text) 8%, transparent);background:transparent;color:var(--color-text);font:inherit;text-align:left;cursor:pointer;width:100%">
+<span style="width:8px;height:8px;border-radius:50%;background:{{ k.prioColor }};margin-top:6px;flex:none"></span>
+<span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:14.5px;line-height:1.3;text-wrap:pretty">{{ k.title }}</span><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 58%, transparent)">{{ k.id }} · {{ k.jobLine }}</span><span style="font-size:12px;color:{{ k.dueColor }}">{{ k.due }}</span></span>
+<span style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none"><span style="font-size:10.5px;padding:3px 8px;border-radius:6px;background:{{ k.statusBg }};color:{{ k.statusColor }}">{{ k.status }}</span><span style="font-size:11px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ k.pct }}</span></span>
+</button>
+</sc-for>
+<sc-if value="{{ ledgerEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:18px 0;color:color-mix(in srgb, var(--color-text) 55%, transparent);font-size:13px">{{ t.nothingHere }}</div></sc-if>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ vFocus }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.alsoToday }}</div>
+<sc-for list="{{ otherTasks }}" as="k" hint-placeholder-count="3">
+<button onClick="{{ k.open }}" style="display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;border:none;background:var(--color-surface);box-shadow:0 0 0 1px var(--line);color:var(--color-text);font:inherit;text-align:left;cursor:pointer;width:100%" style-hover="box-shadow:0 0 0 1px var(--line2)">
+<span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:14px;line-height:1.3">{{ k.title }}</span><span style="font-size:11.5px;color:{{ k.dueColor }}">{{ k.due }}</span></span>
+<span style="font-size:10.5px;padding:3px 8px;border-radius:6px;background:{{ k.statusBg }};color:{{ k.statusColor }};flex:none">{{ k.status }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ vBoard }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.myWork }}</div>
+<div style="display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -18px;padding:0 18px 4px">
+<sc-for list="{{ boardCols }}" as="col" hint-placeholder-count="2">
+<div style="flex:none;width:250px;scroll-snap-align:start;display:flex;flex-direction:column;gap:8px;padding:10px;border-radius:14px;background:color-mix(in srgb, var(--color-surface) 60%, transparent);box-shadow:0 0 0 1px var(--line)">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:2px 4px"><span style="display:flex;gap:7px;align-items:center;font-size:12.5px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:{{ col.color }}"></span>{{ col.label }}</span><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ col.count }}</span></div>
+<sc-for list="{{ col.cards }}" as="k" hint-placeholder-count="2">
+<button onClick="{{ k.open }}" style="display:flex;flex-direction:column;gap:6px;padding:11px;border-radius:10px;border:none;background:var(--color-surface);box-shadow:0 0 0 1px var(--line);color:var(--color-text);font:inherit;text-align:left;cursor:pointer" style-hover="box-shadow:0 0 0 1px var(--line2)">
+<span style="display:flex;justify-content:space-between;font-size:10.5px"><span style="font-family:ui-monospace,Menlo,monospace;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ k.id }}</span><span style="font-weight:600;letter-spacing:.05em;color:{{ k.prioColor }}">{{ k.prio }}</span></span>
+<span style="font-size:13.5px;line-height:1.3">{{ k.title }}</span>
+<span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 58%, transparent)">{{ k.jobLine }}</span>
+<span style="height:3px;border-radius:2px;background:var(--line);overflow:hidden"><span style="display:block;height:100%;width:{{ k.w }};background:var(--color-accent)"></span></span>
+<span style="display:flex;justify-content:space-between;font-size:11.5px"><span style="color:{{ k.dueColor }}">{{ k.due }}</span><span style="display:flex;gap:8px;color:color-mix(in srgb, var(--color-text) 55%, transparent)"><span><i class="ph ph-paperclip"></i> {{ k.files }}</span><span><i class="ph ph-chat-circle"></i> {{ k.comments }}</span></span></span>
+</button>
+</sc-for>
+<sc-if value="{{ col.empty }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;padding:10px 4px;color:color-mix(in srgb, var(--color-text) 45%, transparent)">{{ t.nothingHere }}</div></sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<button onClick="{{ goEod }}" style="display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;border:1px dashed {{ eodBorder }};background:transparent;color:var(--color-text);font:inherit;text-align:left;cursor:pointer" style-hover="background:color-mix(in srgb, var(--color-text) 5%, transparent)"><i class="ph {{ eodIcon }}" style="font-size:24px;color:{{ eodColor }}"></i><span style="flex:1;display:flex;flex-direction:column"><span style="font-size:14px;font-weight:500">{{ t.eod }}</span><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ eodSub }}</span></span><i class="ph ph-caret-right"></i></button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMgmtHome }}" hint-placeholder-val="{{ false }}">
+<div style="padding:10px 18px 24px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+<div style="min-width:0"><div style="font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-300)">{{ scopeLabel }}</div><div style="font-size:21px;font-weight:500;letter-spacing:-.01em;margin-top:4px;line-height:1.2;text-wrap:pretty">{{ mgmtTitle }}</div><div style="font-size:12px;margin-top:3px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ dateStr }} · {{ clock }}</div></div>
+<div style="display:flex;gap:2px;flex:none">
+<button onClick="{{ toggleLang }}" style="height:40px;padding:0 10px;border-radius:20px;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;font-size:12px;cursor:pointer">{{ t.langShort }}</button>
+<button onClick="{{ goNew }}" style="width:40px;height:40px;border-radius:20px;border:1px solid var(--color-accent);background:transparent;color:var(--color-accent-300);font-size:19px;cursor:pointer;display:grid;place-items:center" style-hover="background:color-mix(in srgb, var(--color-accent) 12%, transparent)"><i class="ph ph-plus"></i></button>
+</div>
+</div>
+<div style="display:flex;border:1px solid var(--color-divider);border-radius:10px;overflow:hidden;align-self:flex-start">
+<sc-for list="{{ modeOpts }}" as="m" hint-placeholder-count="2"><button onClick="{{ m.onClick }}" style="height:36px;padding:0 16px;border:none;background:{{ m.bg }};color:{{ m.color }};font:inherit;font-size:13px;cursor:pointer">{{ m.label }}</button></sc-for>
+</div>
+
+<sc-if value="{{ isMorning }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+<sc-for list="{{ kpis }}" as="k" hint-placeholder-count="8"><button onClick="{{ k.onClick }}" style="display:flex;flex-direction:column;gap:2px;padding:12px 13px;border-radius:12px;border:none;background:var(--color-surface);box-shadow:0 0 0 1px var(--line);color:var(--color-text);font:inherit;text-align:left;cursor:pointer" style-hover="box-shadow:0 0 0 1px var(--line2)"><span style="font-size:26px;font-weight:500;letter-spacing:-.02em;line-height:1.1;color:{{ k.color }}">{{ k.value }}</span><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ k.label }}</span></button></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isEvening }}" hint-placeholder-val="{{ false }}">
+<div style="border-radius:14px;background:var(--color-surface);box-shadow:0 0 0 1px var(--line);padding:4px 14px">
+<sc-for list="{{ eveRows }}" as="r" hint-placeholder-count="6"><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid color-mix(in srgb, var(--color-text) 7%, transparent);font-size:13.5px"><span style="color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ r.k }}</span><span style="font-weight:500">{{ r.v }}</span></div></sc-for>
+<div style="padding:12px 0 10px;display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between;font-size:13.5px"><span style="color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ t.e_prod }}</span><span>{{ eveProd }}</span></div><div style="height:6px;border-radius:3px;background:var(--line);overflow:hidden"><div style="height:100%;width:{{ eveProdW }};background:var(--color-accent)"></div></div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.e_dispatch }}</div>
+<sc-for list="{{ eveDispatch }}" as="d" hint-placeholder-count="2"><button onClick="{{ d.onClick }}" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;text-align:left;cursor:pointer"><i class="ph ph-truck" style="font-size:20px;color:{{ d.color }}"></i><span style="flex:1;display:flex;flex-direction:column"><span style="font-size:13.5px">{{ d.customer }}</span><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ d.id }} · {{ d.when }}</span></span><span style="font-size:11.5px;color:{{ d.color }}">{{ d.stage }}</span></button></sc-for>
+</div>
+</sc-if>
+
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;gap:8px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-300)"><span style="width:6px;height:6px;border-radius:50%;background:var(--bad);box-shadow:0 0 10px var(--bad)"></span><sc-if value="{{ isMorning }}" hint-placeholder-val="{{ true }}">{{ t.attention }}</sc-if><sc-if value="{{ isEvening }}" hint-placeholder-val="{{ false }}">{{ t.dirAttention }}</sc-if></div>
+<sc-for list="{{ attention }}" as="a" hint-placeholder-count="4">
+<button onClick="{{ a.onClick }}" style="display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;border:none;background:var(--color-surface);box-shadow:0 0 0 1px var(--line);color:var(--color-text);font:inherit;text-align:left;cursor:pointer;width:100%" style-hover="box-shadow:0 0 0 1px var(--line2)">
+<span style="width:34px;height:34px;flex:none;border-radius:9px;display:grid;place-items:center;font-size:18px;color:{{ a.color }};background:color-mix(in srgb, {{ a.color }} 15%, transparent)"><i class="ph {{ a.icon }}"></i></span>
+<span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:13.5px;line-height:1.3">{{ a.title }}</span><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ a.sub }}</span></span>
+<i class="ph ph-caret-right" style="margin-top:9px;color:color-mix(in srgb, var(--color-text) 45%, transparent)"></i>
+</button>
+</sc-for>
+</div>
+
+<sc-if value="{{ isMorning }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.team }}</div>
+<sc-for list="{{ load }}" as="l" hint-placeholder-count="4"><div style="display:grid;grid-template-columns:110px minmax(0,1fr) 44px;gap:10px;align-items:center;font-size:12.5px"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.name }}</span><span style="height:6px;border-radius:3px;background:var(--line);overflow:hidden"><span style="display:block;height:100%;width:{{ l.w }};background:var(--color-accent)"></span></span><span style="text-align:right;color:{{ l.odColor }}">{{ l.open }}<span style="opacity:.6"> / {{ l.od }}</span></span></div></sc-for>
+<div style="font-size:11px;color:color-mix(in srgb, var(--color-text) 50%, transparent)">open / overdue</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isList }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:4px;padding:2px 10px 2px 4px;position:sticky;top:0;z-index:3;background:var(--color-bg)"><button onClick="{{ back }}" style="width:44px;height:44px;border:none;background:transparent;color:var(--color-text);font-size:21px;cursor:pointer"><i class="ph ph-arrow-left"></i></button><div style="flex:1;font-size:16px;font-weight:500">{{ listTitle }}</div></div>
+<div style="padding:4px 18px 24px;display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ listCards }}" as="k" hint-placeholder-count="4">
+<button onClick="{{ k.open }}" style="display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;border:none;background:var(--color-surface);box-shadow:0 0 0 1px var(--line);color:var(--color-text);font:inherit;text-align:left;cursor:pointer;width:100%">
+<span style="width:32px;height:32px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:11.5px;font-weight:500;background:var(--tint2);color:var(--color-accent-100)">{{ k.whoInit }}</span>
+<span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:14px;line-height:1.3">{{ k.title }}</span><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ k.who }} · {{ k.id }}</span><span style="font-size:11.5px;color:{{ k.dueColor }}">{{ k.due }}</span></span>
+<span style="display:flex;flex-direction:column;align-items:flex-end;gap:5px"><span style="font-size:10.5px;padding:3px 8px;border-radius:6px;background:{{ k.statusBg }};color:{{ k.statusColor }}">{{ k.status }}</span><span style="font-size:10px;font-weight:600;letter-spacing:.05em;color:{{ k.prioColor }}">{{ k.prio }}</span></span>
+</button>
+</sc-for>
+<sc-if value="{{ listEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:30px 0;text-align:center;color:color-mix(in srgb, var(--color-text) 55%, transparent)">0 · {{ t.nothingHere }}</div></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTask }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:4px;padding:2px 14px 2px 4px;position:sticky;top:0;z-index:3;background:var(--color-bg)"><button onClick="{{ back }}" style="width:44px;height:44px;border:none;background:transparent;color:var(--color-text);font-size:21px;cursor:pointer"><i class="ph ph-arrow-left"></i></button><div style="flex:1;font-family:ui-monospace,Menlo,monospace;font-size:13px;color:color-mix(in srgb, var(--color-text) 70%, transparent)">{{ tk.id }}</div><span style="font-size:11px;padding:4px 9px;border-radius:6px;background:{{ tk.statusBg }};color:{{ tk.statusColor }}">{{ tk.status }}</span></div>
+<div style="padding:4px 18px 28px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<h2 style="font-size:21px;line-height:1.22;margin:0;text-wrap:pretty">{{ tk.title }}</h2>
+<sc-if value="{{ tkHasJob }}" hint-placeholder-val="{{ false }}"><button onClick="{{ openTkJob }}" style="align-self:flex-start;display:flex;gap:6px;align-items:center;border:none;background:transparent;padding:0;color:var(--color-accent-300);font:inherit;font-size:12.5px;cursor:pointer;text-align:left"><i class="ph ph-stack"></i>{{ tkJob }}</button></sc-if>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<span style="font-size:10.5px;font-weight:600;letter-spacing:.06em;padding:3px 8px;border-radius:6px;background:{{ tk.prioBg }};color:{{ tk.prioColor }}">{{ tk.prio }}</span>
+<span style="font-size:11px;padding:3px 8px;border-radius:6px;background:var(--line);color:var(--color-text)">{{ tk.dept }}</span>
+<sc-if value="{{ tk.hasRev }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--warn);color:var(--warn)">{{ tk.revLabel }}</span></sc-if>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px">
+<sc-for list="{{ tkMeta }}" as="m" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:11px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ m.k }}</span><span style="font-size:13.5px">{{ m.v }}</span></div></sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ t.progressL }}</span><span>{{ tk.pct }}</span></div><div style="height:6px;border-radius:3px;background:var(--line);overflow:hidden"><div style="height:100%;width:{{ tk.w }};background:var(--color-accent);border-radius:3px"></div></div><span style="font-size:12px;color:{{ tk.dueColor }}">{{ tk.due }}</span></div>
+
+<sc-if value="{{ tkBlocked }}" hint-placeholder-val="{{ false }}">
+<div style="padding:12px 14px;border-radius:12px;background:color-mix(in srgb, var(--bad) 12%, transparent);box-shadow:0 0 0 1px color-mix(in srgb, var(--bad) 40%, transparent);display:flex;flex-direction:column;gap:4px"><span style="display:flex;gap:6px;align-items:center;font-size:13.5px;font-weight:500;color:var(--bad-text)"><i class="ph ph-hand"></i>{{ tkBlock.reason }}</span><span style="font-size:13px">{{ tkBlock.text }}</span><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ tkBlock.since }}</span></div>
+</sc-if>
+
+<sc-if value="{{ tkHasActs }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+<sc-for list="{{ tkActs }}" as="a" hint-placeholder-count="2"><button onClick="{{ a.onClick }}" style="grid-column:{{ a.span }};height:{{ a.h }};border-radius:12px;border:1px solid {{ a.border }};background:{{ a.bg }};color:{{ a.color }};font:inherit;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;padding:0 8px" style-hover="filter:brightness(1.15)"><i class="ph {{ a.icon }}" style="font-size:18px"></i>{{ a.label }}</button></sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ tkHasNote }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:8px;padding:11px 12px;border-radius:12px;border:1px dashed var(--color-divider);font-size:13px;color:color-mix(in srgb, var(--color-text) 78%, transparent)"><i class="ph ph-info" style="font-size:17px;color:var(--color-accent-300)"></i>{{ tkNote }}</div></sc-if>
+
+<sc-if value="{{ tkHasFiles }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.attachments }}</div>
+<sc-for list="{{ tkFiles }}" as="f" hint-placeholder-count="1"><div style="display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:10px;background:var(--color-surface)"><sc-if value="{{ f.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ f.url }}" alt="" style="width:36px;height:36px;border-radius:6px;object-fit:cover"></sc-if><sc-if value="{{ f.noImg }}" hint-placeholder-val="{{ true }}"><span style="width:36px;height:36px;border-radius:6px;display:grid;place-items:center;background:var(--line);font-size:18px;color:var(--color-accent-300)"><i class="ph {{ f.icon }}"></i></span></sc-if><span style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ f.name }}</span><span style="font-size:11px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ f.meta }}</span></span></div></sc-for>
+</div>
+</sc-if>
+
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.comments }}</div>
+<sc-for list="{{ tkComments }}" as="c" hint-placeholder-count="1"><div style="display:flex;gap:10px"><span style="width:28px;height:28px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:10.5px;font-weight:500;background:var(--tint2);color:var(--color-accent-100)">{{ c.init }}</span><div style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ c.who }} · {{ c.when }}</span><span style="font-size:13.5px">{{ c.text }}</span></div></div></sc-for>
+<div style="display:flex;gap:6px"><input value="{{ comment }}" onChange="{{ onComment }}" onKeyDown="{{ onCommentKey }}" placeholder="{{ t.addComment }}" style="flex:1;min-width:0;height:44px;padding:0 12px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:13.5px;outline:none" style-focus="border-color:var(--color-accent)"><button onClick="{{ sendComment }}" style="width:44px;height:44px;border-radius:10px;border:1px solid var(--color-accent);background:transparent;color:var(--color-accent-300);font-size:18px;cursor:pointer"><i class="ph ph-paper-plane-right"></i></button></div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.timeline }}</span><span style="display:flex;gap:4px;align-items:center;font-size:10.5px;color:color-mix(in srgb, var(--color-text) 50%, transparent)"><i class="ph ph-lock-simple"></i>{{ t.timelineNote }}</span></div>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ tkTimeline }}" as="h" hint-placeholder-count="4">
+<sc-if value="{{ h.showDay }}" hint-placeholder-val="{{ false }}"><div style="font-size:11px;font-weight:500;color:var(--color-accent-300);padding:2px 0 8px 76px">{{ h.day }}</div></sc-if>
+<div style="display:grid;grid-template-columns:62px 14px minmax(0,1fr);gap:0 8px">
+<span style="font-size:11.5px;font-family:ui-monospace,Menlo,monospace;color:color-mix(in srgb, var(--color-text) 60%, transparent);text-align:right;padding-top:1px">{{ h.time }}</span>
+<span style="display:flex;flex-direction:column;align-items:center"><span style="width:9px;height:9px;border-radius:50%;background:{{ h.dot }};margin-top:4px;flex:none"></span><span style="flex:1;width:1px;background:{{ h.line }};margin-top:3px"></span></span>
+<span style="padding-bottom:14px;display:flex;flex-direction:column;gap:1px"><span style="font-size:13px;line-height:1.35">{{ h.text }}</span><span style="font-size:11px;color:color-mix(in srgb, var(--color-text) 50%, transparent)">{{ h.by }}</span></span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isJobs }}" hint-placeholder-val="{{ false }}">
+<div style="padding:12px 18px 24px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><h2 style="font-size:22px;margin:0">{{ t.prodJobs }}</h2><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ jobsCount }}</span></div>
+<sc-for list="{{ jobCards }}" as="j" hint-placeholder-count="3">
+<button onClick="{{ j.onClick }}" style="display:flex;flex-direction:column;gap:9px;padding:14px;border-radius:14px;border:none;background:var(--color-surface);box-shadow:0 0 0 1px var(--line);color:var(--color-text);font:inherit;text-align:left;cursor:pointer;width:100%" style-hover="box-shadow:0 0 0 1px var(--line2)">
+<span style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ j.id }}</span><span style="font-size:10.5px;padding:3px 8px;border-radius:6px;background:{{ j.riskBg }};color:{{ j.riskColor }}">{{ j.riskLabel }}</span></span>
+<span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15.5px;font-weight:500">{{ j.customer }}</span><span style="font-size:12px;color:var(--color-accent-300)">{{ j.tech }}</span></span>
+<span style="display:flex;gap:2px"><sc-for list="{{ j.segs }}" as="g" hint-placeholder-count="11"><span style="flex:1;height:4px;border-radius:2px;background:{{ g.c }}"></span></sc-for></span>
+<span style="display:flex;justify-content:space-between;font-size:11.5px;color:color-mix(in srgb, var(--color-text) 65%, transparent)"><span>{{ j.stage }}</span><span>{{ j.pctLabel }}</span></span>
+<span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 55%, transparent)"><i class="ph ph-truck"></i> {{ j.deliver }}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isJob }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:4px;padding:2px 14px 2px 4px;position:sticky;top:0;z-index:3;background:var(--color-bg)"><button onClick="{{ back }}" style="width:44px;height:44px;border:none;background:transparent;color:var(--color-text);font-size:21px;cursor:pointer"><i class="ph ph-arrow-left"></i></button><div style="flex:1;font-family:ui-monospace,Menlo,monospace;font-size:13px;color:color-mix(in srgb, var(--color-text) 70%, transparent)">{{ jb.id }}</div></div>
+<div style="padding:4px 18px 28px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-300)">{{ jb.tech }}</span><h2 style="font-size:22px;margin:0">{{ jb.customer }}</h2><span style="font-size:13px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ jb.product }} · {{ jb.brand }}</span></div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px"><sc-for list="{{ jbFacts }}" as="f" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:1px"><span style="font-size:11px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ f.k }}</span><span style="font-size:13.5px">{{ f.v }}</span></div></sc-for></div>
+<div style="display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:14px;background:var(--color-surface);box-shadow:0 0 0 1px var(--line)">
+<sc-for list="{{ jbRows }}" as="r" hint-placeholder-count="6"><div style="display:flex;flex-direction:column;gap:4px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="color:color-mix(in srgb, var(--color-text) 72%, transparent)">{{ r.label }}</span><span>{{ r.val }} <span style="color:color-mix(in srgb, var(--color-text) 50%, transparent)">· {{ r.pct }}</span></span></div><div style="height:5px;border-radius:3px;background:var(--line);overflow:hidden"><div style="height:100%;width:{{ r.w }};background:{{ r.c }}"></div></div></div></sc-for>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-if value="{{ jbCanQc }}" hint-placeholder-val="{{ false }}"><button onClick="{{ goQc }}" style="height:48px;border-radius:12px;border:1px solid var(--color-accent);background:transparent;color:var(--color-accent-200);font:inherit;font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer" style-hover="background:color-mix(in srgb, var(--color-accent) 12%, transparent)"><i class="ph ph-seal-check" style="font-size:18px"></i>{{ t.recordQc }}</button></sc-if>
+<sc-if value="{{ jbCanAdvance }}" hint-placeholder-val="{{ false }}"><button onClick="{{ advance }}" style="height:46px;border-radius:12px;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;font-size:13.5px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer"><i class="ph ph-flow-arrow" style="font-size:17px"></i>{{ t.completeStage }} · {{ jb.stageName }}</button></sc-if>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.stages }}</div>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ jbStages }}" as="g" hint-placeholder-count="6"><div style="display:grid;grid-template-columns:16px minmax(0,1fr);gap:0 12px"><span style="display:flex;flex-direction:column;align-items:center"><span style="width:12px;height:12px;border-radius:50%;border:2px solid {{ g.dotBorder }};background:{{ g.dotBg }};box-shadow:{{ g.glow }};margin-top:3px;flex:none;box-sizing:border-box"></span><span style="flex:1;width:2px;background:{{ g.line }};margin:2px 0"></span></span><span style="padding-bottom:12px;display:flex;flex-direction:column"><span style="font-size:13.5px;font-weight:{{ g.weight }};color:{{ g.nameColor }}">{{ g.name }}</span><span style="font-size:11px;color:color-mix(in srgb, var(--color-text) 52%, transparent)">{{ g.owner }} {{ g.time }}</span></span></div></sc-for>
+</div>
+</div>
+<sc-if value="{{ jbHasQc }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.qcLog }}</div>
+<sc-for list="{{ jbQc }}" as="q" hint-placeholder-count="1"><div style="padding:10px 12px;border-radius:10px;background:var(--color-surface);display:flex;flex-direction:column;gap:2px"><span style="font-size:13px">{{ q.line }}</span><span style="font-size:11px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ q.meta }}</span><span style="font-size:12px;color:var(--color-accent-300)">{{ q.action }}</span></div></sc-for>
+</div>
+</sc-if>
+<div style="font-size:12.5px;color:color-mix(in srgb, var(--color-text) 65%, transparent)"><i class="ph ph-note"></i> {{ jb.notes }}</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isQc }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:4px;padding:2px 14px 2px 4px;position:sticky;top:0;z-index:3;background:var(--color-bg)"><button onClick="{{ back }}" style="width:44px;height:44px;border:none;background:transparent;color:var(--color-text);font-size:21px;cursor:pointer"><i class="ph ph-x"></i></button><div style="flex:1;font-size:16px;font-weight:500">{{ t.qcTitle }}</div></div>
+<div style="padding:4px 18px 28px;display:flex;flex-direction:column;gap:14px">
+<div style="font-size:12.5px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ jb.id }} · {{ jb.customer }} · {{ jb.tech }}</div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+<label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.qChecked }}</span><input value="{{ qc.checked }}" onChange="{{ onQcChecked }}" inputmode="numeric" placeholder="0" style="height:52px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:20px;text-align:center;outline:none;min-width:0" style-focus="border-color:var(--color-accent)"></label>
+<label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.qPassed }}</span><input value="{{ qc.passed }}" onChange="{{ onQcPassed }}" inputmode="numeric" placeholder="0" style="height:52px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--ok-text);font:inherit;font-size:20px;text-align:center;outline:none;min-width:0" style-focus="border-color:var(--color-accent)"></label>
+<div style="display:flex;flex-direction:column;gap:5px"><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.qRejected }}</span><div style="height:52px;border-radius:10px;border:1px dashed var(--color-divider);display:grid;place-items:center;font-size:20px;color:var(--bad-text)">{{ qcRejected }}</div></div>
+</div>
+<sc-if value="{{ qcInvalid }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:var(--bad-text)">Passed cannot exceed checked.</div></sc-if>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.defect }}</span><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ qcDefects }}" as="d" hint-placeholder-count="6"><button onClick="{{ d.onClick }}" style="height:38px;padding:0 12px;border-radius:19px;border:1px solid {{ d.border }};background:{{ d.bg }};color:{{ d.color }};font:inherit;font-size:12.5px;cursor:pointer">{{ d.label }}</button></sc-for></div></div>
+<label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.defectReason }}</span><textarea value="{{ qc.reason }}" onChange="{{ onQcReason }}" rows="2" style="padding:10px 12px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:13.5px;outline:none;resize:none" style-focus="border-color:var(--color-accent)"></textarea></label>
+<label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.corrective }}</span><input value="{{ qc.action }}" onChange="{{ onQcAction }}" style="height:44px;padding:0 12px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:13.5px;outline:none" style-focus="border-color:var(--color-accent)"></label>
+<button onClick="{{ qcReworkToggle }}" style="display:flex;justify-content:space-between;align-items:center;height:48px;padding:0 4px;border:none;background:transparent;color:var(--color-text);font:inherit;font-size:14px;cursor:pointer">{{ t.reworkReq }}<span style="position:relative;width:42px;height:24px;border-radius:12px;background:{{ qcReworkBg }}"><span style="position:absolute;top:2px;left:{{ qcReworkX }};width:20px;height:20px;border-radius:50%;background:var(--knob);transition:left .15s"></span></span></button>
+<label style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;border:1px dashed var(--color-divider);cursor:pointer"><sc-if value="{{ qcHasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ qcPhoto }}" alt="" style="width:48px;height:48px;border-radius:8px;object-fit:cover"></sc-if><sc-if value="{{ qcNoPhoto }}" hint-placeholder-val="{{ true }}"><span style="width:48px;height:48px;border-radius:8px;display:grid;place-items:center;background:var(--line);font-size:22px;color:var(--color-accent-300)"><i class="ph ph-camera"></i></span></sc-if><span style="font-size:13.5px">{{ t.qcPhoto }}</span><input type="file" accept="image/*" capture="environment" onChange="{{ onQcPhoto }}" style="display:none"></label>
+<button onClick="{{ saveQc }}" style="height:52px;border-radius:12px;border:1px solid var(--color-accent);background:color-mix(in srgb, var(--color-accent) 10%, transparent);color:var(--color-accent-100);font:inherit;font-size:15px;font-weight:500;cursor:pointer;opacity:{{ qcBtnOpacity }}">{{ t.saveQc }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isApprovals }}" hint-placeholder-val="{{ false }}">
+<div style="padding:12px 18px 24px;display:flex;flex-direction:column;gap:12px">
+<h2 style="font-size:22px;margin:0">{{ t.approvals }}</h2>
+<sc-for list="{{ apprCards }}" as="a" hint-placeholder-count="3">
+<div style="display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:14px;background:var(--color-surface);box-shadow:0 0 0 1px var(--line)">
+<button onClick="{{ a.open }}" style="display:flex;gap:10px;align-items:flex-start;border:none;background:transparent;padding:0;color:var(--color-text);font:inherit;text-align:left;cursor:pointer"><span style="width:32px;height:32px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:11.5px;font-weight:500;background:var(--tint2);color:var(--color-accent-100)">{{ a.whoInit }}</span><span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:14.5px;line-height:1.3">{{ a.title }}</span><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ a.who }} · {{ a.id }} · {{ a.filesN }}</span><span style="font-size:11.5px;color:var(--warn)">{{ a.sub }}</span></span><i class="ph ph-caret-right" style="margin-top:8px;color:color-mix(in srgb, var(--color-text) 45%, transparent)"></i></button>
+<div style="display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:6px">
+<button onClick="{{ a.approve }}" style="height:44px;border-radius:10px;border:1px solid var(--ok);background:color-mix(in srgb, var(--ok) 10%, transparent);color:var(--ok-text);font:inherit;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px"><i class="ph ph-check"></i>{{ t.approve }}</button>
+<button onClick="{{ a.correct }}" style="height:44px;border-radius:10px;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;font-size:13px;cursor:pointer">{{ t.correction }}</button>
+<button onClick="{{ a.reject }}" style="height:44px;border-radius:10px;border:1px solid var(--color-divider);background:transparent;color:var(--bad-text);font:inherit;font-size:13px;cursor:pointer">{{ t.reject }}</button>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{ apprEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:40px 0;text-align:center;color:color-mix(in srgb, var(--color-text) 60%, transparent)"><i class="ph ph-seal-check" style="font-size:32px;color:var(--ok)"></i><div style="margin-top:6px">{{ t.noApprovals }}</div></div></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isInbox }}" hint-placeholder-val="{{ false }}">
+<div style="padding:12px 18px 24px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:22px;margin:0">{{ t.inbox }}</h2><sc-if value="{{ inAlerts }}" hint-placeholder-val="{{ true }}"><button onClick="{{ markAll }}" style="border:none;background:transparent;color:var(--color-accent-300);font:inherit;font-size:12.5px;cursor:pointer;height:36px"><i class="ph ph-checks"></i></button></sc-if></div>
+<div style="display:flex;border:1px solid var(--color-divider);border-radius:10px;overflow:hidden;align-self:flex-start"><sc-for list="{{ inboxOpts }}" as="m" hint-placeholder-count="2"><button onClick="{{ m.onClick }}" style="height:36px;padding:0 16px;border:none;background:{{ m.bg }};color:{{ m.color }};font:inherit;font-size:13px;cursor:pointer">{{ m.label }}</button></sc-for></div>
+<sc-if value="{{ inAlerts }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ notifs }}" as="n" hint-placeholder-count="4"><button onClick="{{ n.onClick }}" style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border:none;border-bottom:1px solid color-mix(in srgb, var(--color-text) 8%, transparent);background:transparent;color:var(--color-text);font:inherit;text-align:left;cursor:pointer;width:100%"><span style="width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--tint);color:var(--color-accent-300);font-size:17px"><i class="ph {{ n.icon }}"></i></span><span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:13.5px;line-height:1.35;font-weight:{{ n.weight }}">{{ n.text }}</span><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ n.when }}</span></span><span style="width:8px;height:8px;border-radius:50%;background:{{ n.dot }};margin-top:6px;flex:none"></span></button></sc-for>
+<sc-if value="{{ notifEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:30px 0;text-align:center;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.nothingHere }}</div></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ inAnns }}" hint-placeholder-val="{{ false }}">
+<sc-for list="{{ anns }}" as="a" hint-placeholder-count="2">
+<div style="display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:14px;background:var(--color-surface);box-shadow:0 0 0 1px {{ a.border }}">
+<sc-if value="{{ a.urgent }}" hint-placeholder-val="{{ false }}"><span style="align-self:flex-start;font-size:10px;font-weight:600;letter-spacing:.08em;padding:3px 8px;border-radius:6px;background:color-mix(in srgb, var(--warn) 16%, transparent);color:var(--warn)">URGENT</span></sc-if>
+<span style="font-size:15.5px;font-weight:500;line-height:1.3">{{ a.title }}</span>
+<span style="font-size:13px;color:color-mix(in srgb, var(--color-text) 78%, transparent)">{{ a.body }}</span>
+<span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ a.meta }}</span>
+<sc-if value="{{ a.showCount }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:4px"><div style="height:4px;border-radius:2px;background:var(--line);overflow:hidden"><div style="height:100%;width:{{ a.countW }};background:var(--color-accent)"></div></div><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ a.count }}</span></div></sc-if>
+<sc-if value="{{ a.canAck }}" hint-placeholder-val="{{ false }}"><button onClick="{{ a.ack }}" style="height:44px;border-radius:10px;border:1px solid var(--color-accent);background:transparent;color:var(--color-accent-200);font:inherit;font-size:13.5px;font-weight:500;cursor:pointer">{{ t.acknowledge }}</button></sc-if>
+<sc-if value="{{ a.acked }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;color:var(--ok-text)"><i class="ph ph-check-circle"></i> {{ a.ackText }}</span></sc-if>
+</div>
+</sc-for>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isEod }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:4px;padding:2px 14px 2px 4px;position:sticky;top:0;z-index:3;background:var(--color-bg)"><button onClick="{{ back }}" style="width:44px;height:44px;border:none;background:transparent;color:var(--color-text);font-size:21px;cursor:pointer"><i class="ph ph-arrow-left"></i></button><div style="flex:1;font-size:16px;font-weight:500">{{ t.eod }}</div></div>
+<div style="padding:4px 18px 28px;display:flex;flex-direction:column;gap:16px">
+<div style="font-size:12.5px;color:color-mix(in srgb, var(--color-text) 62%, transparent)">{{ eodName }} · {{ eodDate }}</div>
+<div style="display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:14px;background:var(--color-surface);box-shadow:0 0 0 1px var(--line)">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:14px;font-weight:500">{{ t.summary }}</span><span style="font-size:10.5px;color:var(--color-accent-300)"><i class="ph ph-lightning"></i> {{ t.autoGen }}</span></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 8px;margin-top:4px"><sc-for list="{{ eodStats }}" as="e" hint-placeholder-count="6"><div style="display:flex;flex-direction:column"><span style="font-size:22px;font-weight:500;line-height:1.1">{{ e.v }}</span><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ e.k }}</span></div></sc-for></div>
+</div>
+<sc-for list="{{ eodQs }}" as="q" hint-placeholder-count="5"><label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:500">{{ q.label }}</span><textarea value="{{ q.value }}" onChange="{{ q.onChange }}" rows="3" style="padding:10px 12px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:13.5px;line-height:1.45;outline:none;resize:vertical" style-focus="border-color:var(--color-accent)"></textarea></label></sc-for>
+<button onClick="{{ submitEod }}" style="height:52px;border-radius:12px;border:1px solid var(--color-accent);background:color-mix(in srgb, var(--color-accent) 10%, transparent);color:var(--color-accent-100);font:inherit;font-size:15px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><i class="ph ph-paper-plane-tilt"></i>{{ t.submitReport }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 18px 28px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;gap:14px;align-items:center"><span style="width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-size:22px;font-weight:500;background:var(--tint2);color:var(--color-accent-100);box-shadow:0 0 0 1px var(--tint3),0 0 30px -8px var(--color-accent)">{{ pf.init }}</span><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:19px;font-weight:500">{{ pf.name }}</span><span style="font-size:13px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ pf.desig }}</span></div></div>
+<div style="border-radius:14px;background:var(--color-surface);box-shadow:0 0 0 1px var(--line);padding:2px 14px"><sc-for list="{{ pfRows }}" as="r" hint-placeholder-count="5"><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid color-mix(in srgb, var(--color-text) 7%, transparent);font-size:13.5px"><span style="color:color-mix(in srgb, var(--color-text) 62%, transparent)">{{ r.k }}</span><span>{{ r.v }}</span></div></sc-for></div>
+<div style="display:flex;flex-direction:column;gap:8px"><div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px"><sc-for list="{{ pfStats }}" as="p" hint-placeholder-count="6"><div style="padding:10px;border-radius:12px;background:var(--color-surface);box-shadow:0 0 0 1px var(--line);display:flex;flex-direction:column"><span style="font-size:18px;font-weight:500">{{ p.v }}</span><span style="font-size:11px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ p.k }}</span></div></sc-for></div><span style="font-size:11px;color:color-mix(in srgb, var(--color-text) 50%, transparent)">{{ pf.scopeNote }}</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:14px">{{ t.language }}</span><div style="display:flex;border:1px solid var(--color-divider);border-radius:10px;overflow:hidden"><sc-for list="{{ langOpts }}" as="m" hint-placeholder-count="2"><button onClick="{{ m.onClick }}" style="height:36px;padding:0 14px;border:none;background:{{ m.bg }};color:{{ m.color }};font:inherit;font-size:13px;cursor:pointer">{{ m.label }}</button></sc-for></div></div>
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:14px">{{ t.appearance }}</span><div style="display:flex;border:1px solid var(--color-divider);border-radius:10px;overflow:hidden"><sc-for list="{{ themeOpts }}" as="m" hint-placeholder-count="2"><button onClick="{{ m.onClick }}" style="height:36px;padding:0 14px;border:none;background:{{ m.bg }};color:{{ m.color }};font:inherit;font-size:13px;cursor:pointer;display:flex;gap:6px;align-items:center"><i class="ph {{ m.icon }}"></i>{{ m.label }}</button></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.dataL }}</div>
+<button onClick="{{ doExport }}" style="display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;text-align:left;cursor:pointer" style-hover="background:color-mix(in srgb, var(--color-text) 5%, transparent)"><i class="ph ph-microsoft-excel-logo" style="font-size:24px;color:var(--ok)"></i><span style="flex:1;display:flex;flex-direction:column"><span style="font-size:13.5px">{{ exportLabel }}</span><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 58%, transparent)">{{ exportSub }}</span></span><i class="ph ph-download-simple"></i></button></div>
+<div style="display:flex;flex-direction:column;gap:8px"><div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.sessions }}</div>
+<sc-for list="{{ sessions }}" as="x" hint-placeholder-count="2"><div style="display:flex;gap:12px;align-items:center;font-size:13px"><i class="ph {{ x.icon }}" style="font-size:20px;color:var(--color-accent-300)"></i><span style="display:flex;flex-direction:column"><span>{{ x.device }}</span><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 58%, transparent)">{{ x.where }}</span></span></div></sc-for>
+<button onClick="{{ signOutOthers }}" style="align-self:flex-start;border:none;background:transparent;color:var(--color-accent-300);font:inherit;font-size:13px;cursor:pointer;padding:6px 0">{{ t.signOutOthers }}</button></div>
+<sc-if value="{{ isDirector }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent)">{{ t.auditL }}</div><sc-for list="{{ auditRows }}" as="a" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;padding:8px 0;border-bottom:1px solid color-mix(in srgb, var(--color-text) 7%, transparent)"><span style="font-size:12.5px">{{ a.line }}</span><span style="font-size:11px;font-family:ui-monospace,Menlo,monospace;color:color-mix(in srgb, var(--color-text) 52%, transparent)">{{ a.sub }}</span></div></sc-for></div></sc-if>
+<button onClick="{{ doLogout }}" style="height:48px;border-radius:12px;border:1px solid var(--color-divider);background:transparent;color:var(--bad-text);font:inherit;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><i class="ph ph-sign-out"></i>{{ t.logout }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isNew }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:4px;padding:2px 14px 2px 4px;position:sticky;top:0;z-index:3;background:var(--color-bg)"><button onClick="{{ back }}" style="width:44px;height:44px;border:none;background:transparent;color:var(--color-text);font-size:21px;cursor:pointer"><i class="ph ph-x"></i></button><div style="flex:1;font-size:16px;font-weight:500">{{ t.newTask }}</div></div>
+<div style="padding:4px 18px 28px;display:flex;flex-direction:column;gap:14px">
+<label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.f_title }}</span><input value="{{ nt.title }}" onChange="{{ onNtTitle }}" style="height:46px;padding:0 12px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:14.5px;outline:none" style-focus="border-color:var(--color-accent)"></label>
+<label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.f_assignee }}</span><select value="{{ nt.assignee }}" onChange="{{ onNtAssignee }}" style="height:46px;padding:0 10px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:14px;outline:none"><option value="">—</option><sc-for list="{{ ntPeople }}" as="p" hint-placeholder-count="3"><option value="{{ p.id }}">{{ p.label }}</option></sc-for></select></label>
+<label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.f_job }}</span><select value="{{ nt.job }}" onChange="{{ onNtJob }}" style="height:46px;padding:0 10px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:14px;outline:none"><option value="">{{ t.none }}</option><sc-for list="{{ ntJobs }}" as="j" hint-placeholder-count="3"><option value="{{ j.id }}">{{ j.label }}</option></sc-for></select></label>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.f_prio }}</span><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ ntPrios }}" as="p" hint-placeholder-count="5"><button onClick="{{ p.onClick }}" style="height:36px;padding:0 11px;border-radius:18px;border:1px solid {{ p.border }};background:{{ p.bg }};color:{{ p.color }};font:inherit;font-size:11.5px;font-weight:600;letter-spacing:.05em;cursor:pointer">{{ p.label }}</button></sc-for></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.f_due }}</span><div style="display:flex;gap:8px"><div style="display:flex;border:1px solid var(--color-divider);border-radius:10px;overflow:hidden"><sc-for list="{{ ntDays }}" as="m" hint-placeholder-count="2"><button onClick="{{ m.onClick }}" style="height:44px;padding:0 14px;border:none;background:{{ m.bg }};color:{{ m.color }};font:inherit;font-size:13px;cursor:pointer">{{ m.label }}</button></sc-for></div><input type="time" value="{{ nt.time }}" onChange="{{ onNtTime }}" style="flex:1;min-width:0;height:44px;padding:0 10px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:14px;color-scheme:dark"></div></div>
+<label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.f_desc }}</span><textarea value="{{ nt.desc }}" onChange="{{ onNtDesc }}" rows="3" style="padding:10px 12px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:13.5px;outline:none;resize:none" style-focus="border-color:var(--color-accent)"></textarea></label>
+<button onClick="{{ ntApprovalToggle }}" style="display:flex;justify-content:space-between;align-items:center;height:44px;padding:0 2px;border:none;background:transparent;color:var(--color-text);font:inherit;font-size:14px;cursor:pointer">{{ t.f_approval }}<span style="position:relative;width:42px;height:24px;border-radius:12px;background:{{ ntApprBg }}"><span style="position:absolute;top:2px;left:{{ ntApprX }};width:20px;height:20px;border-radius:50%;background:var(--knob);transition:left .15s"></span></span></button>
+<button onClick="{{ createTask }}" style="height:52px;border-radius:12px;border:1px solid var(--color-accent);background:color-mix(in srgb, var(--color-accent) 10%, transparent);color:var(--color-accent-100);font:inherit;font-size:15px;font-weight:500;cursor:pointer;opacity:{{ ntOpacity }}">{{ t.assign }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isProof }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:4px;padding:2px 14px 2px 4px;position:sticky;top:0;z-index:3;background:var(--color-bg)"><button onClick="{{ back }}" style="width:44px;height:44px;border:none;background:transparent;color:var(--color-text);font-size:21px;cursor:pointer"><i class="ph ph-x"></i></button><div style="flex:1;font-size:16px;font-weight:500">{{ t.proofTitle }}</div></div>
+<div style="padding:4px 18px 28px;display:flex;flex-direction:column;gap:14px">
+<div style="font-size:12.5px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ proofTask }}</div>
+<label style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;height:170px;border-radius:16px;border:1.5px dashed var(--color-accent-700);background:repeating-linear-gradient(135deg, transparent 0 10px, color-mix(in srgb, var(--color-accent) 5%, transparent) 10px 20px);cursor:pointer;text-align:center;padding:0 20px"><i class="ph ph-camera" style="font-size:36px;color:var(--color-accent-300)"></i><span style="font-size:14.5px;font-weight:500">{{ t.takePhoto }}</span><span style="font-size:11.5px;color:color-mix(in srgb, var(--color-text) 58%, transparent)">{{ t.proofHint }}</span><input type="file" accept="image/*,application/pdf,.ai,.psd,.cdr,.xlsx,.docx" capture="environment" multiple onChange="{{ onFiles }}" style="display:none"></label>
+<sc-if value="{{ hasProofs }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+<sc-for list="{{ proofs }}" as="p" hint-placeholder-count="2"><div style="position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:var(--color-surface);box-shadow:0 0 0 1px var(--line)"><sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ p.url }}" alt="" style="width:100%;height:100%;object-fit:cover"></sc-if><sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ true }}"><div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;font-size:10.5px;text-align:center;word-break:break-all"><i class="ph ph-file" style="font-size:22px;color:var(--color-accent-300)"></i>{{ p.name }}</div></sc-if><button onClick="{{ p.remove }}" style="position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;border:none;background:rgba(0,0,0,.6);color:#e9e9ed;font-size:13px;cursor:pointer;display:grid;place-items:center"><i class="ph ph-x"></i></button></div></sc-for>
+</div>
+</sc-if>
+<label style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;color:color-mix(in srgb, var(--color-text) 65%, transparent)">{{ t.note }}</span><input value="{{ proofNote }}" onChange="{{ onProofNote }}" style="height:44px;padding:0 12px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);font:inherit;font-size:13.5px;outline:none" style-focus="border-color:var(--color-accent)"></label>
+<button onClick="{{ saveProofs }}" style="height:52px;border-radius:12px;border:1px solid var(--color-accent);background:color-mix(in srgb, var(--color-accent) 10%, transparent);color:var(--color-accent-100);font:inherit;font-size:15px;font-weight:500;cursor:pointer;opacity:{{ proofOpacity }}">{{ t.attach }}</button>
+</div>
+</sc-if>
+
+</div>
+
+<sc-if value="{{ showNav }}" hint-placeholder-val="{{ false }}">
+<div style="flex:none;display:flex;justify-content:space-around;padding:6px 6px 2px;background:color-mix(in srgb, var(--color-bg) 92%, transparent);box-shadow:0 -1px 0 color-mix(in srgb, var(--color-text) 8%, transparent)">
+<sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="5"><button onClick="{{ tb.onClick }}" style="position:relative;flex:1;height:54px;border:none;background:transparent;color:{{ tb.color }};font:inherit;font-size:10.5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer"><i class="{{ tb.icon }}" style="font-size:23px"></i>{{ tb.label }}<sc-if value="{{ tb.hasBadge }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:4px;left:50%;margin-left:6px;min-width:16px;height:16px;border-radius:8px;background:var(--bad);color:var(--color-bg);font-size:10px;font-weight:600;display:grid;place-items:center;padding:0 3px">{{ tb.badge }}</span></sc-if></button></sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ showGesture }}" hint-placeholder-val="{{ true }}"><div style="height:22px;flex:none;display:grid;place-items:center"><div style="width:{{ gestureW }};height:4px;border-radius:2px;background:color-mix(in srgb, var(--color-text) 55%, transparent)"></div></div></sc-if>
+<sc-if value="{{ bareNav }}" hint-placeholder-val="{{ false }}"><div style="height:env(safe-area-inset-bottom);flex:none"></div></sc-if>
+
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:14px;right:14px;top:{{ toastTop }};z-index:30;padding:12px 14px;border-radius:14px;background:var(--toast);box-shadow:0 0 0 1px var(--line2),0 10px 30px rgba(0,0,0,.25);display:flex;gap:10px;align-items:flex-start;font-size:13px;animation:gpsToast .25s ease-out"><i class="ph {{ toast.icon }}" style="font-size:18px;color:var(--color-accent-300);margin-top:1px"></i><span style="flex:1">{{ toast.text }}</span></div>
+</sc-if>
+
+<sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;justify-content:flex-end;background:rgba(10,11,18,.6)">
+<div onClick="{{ closeSheet }}" style="flex:1"></div>
+<div style="max-height:86%;overflow-y:auto;scrollbar-width:none;background:var(--color-surface);border-radius:22px 22px 0 0;box-shadow:0 0 0 1px var(--line2),0 -16px 40px rgba(0,0,0,.5);padding:10px 18px 30px;display:flex;flex-direction:column;gap:14px">
+<div style="width:40px;height:4px;border-radius:2px;background:var(--line2);align-self:center"></div>
+<div style="font-size:12px;color:color-mix(in srgb, var(--color-text) 60%, transparent)">{{ sheetTaskName }}</div>
+
+<sc-if value="{{ isBlockSheet }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="font-size:18px;font-weight:500">{{ t.reasonQ }}</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ blockReasons }}" as="r" hint-placeholder-count="10"><button onClick="{{ r.onClick }}" style="min-height:38px;padding:6px 12px;border-radius:19px;border:1px solid {{ r.border }};background:{{ r.bg }};color:{{ r.color }};font:inherit;font-size:12.5px;cursor:pointer">{{ r.label }}</button></sc-for></div>
+<textarea value="{{ blockText }}" onChange="{{ onBlockText }}" rows="3" placeholder="{{ t.explain }}" style="padding:10px 12px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-bg);color:var(--color-text);font:inherit;font-size:13.5px;outline:none;resize:none" style-focus="border-color:var(--color-accent)"></textarea>
+<div style="display:grid;grid-template-columns:1fr 1.4fr;gap:8px"><button onClick="{{ closeSheet }}" style="height:48px;border-radius:12px;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;font-size:14px;cursor:pointer">{{ t.cancel }}</button><button onClick="{{ saveBlock }}" style="height:48px;border-radius:12px;border:1px solid var(--bad);background:color-mix(in srgb, var(--bad) 12%, transparent);color:var(--bad-text);font:inherit;font-size:14px;font-weight:500;cursor:pointer;opacity:{{ blockOpacity }}">{{ t.reportBlk }}</button></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isProgSheet }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:18px;font-weight:500">{{ t.updateLong }}</span><span style="font-size:30px;font-weight:500;color:var(--color-accent-200)">{{ progLabel }}</span></div>
+<input type="range" min="0" max="100" step="5" value="{{ progVal }}" onChange="{{ onProg }}" style="width:100%;accent-color:var(--color-accent);height:28px">
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px"><sc-for list="{{ progQuick }}" as="q" hint-placeholder-count="4"><button onClick="{{ q.onClick }}" style="height:44px;border-radius:10px;border:1px solid {{ q.border }};background:transparent;color:var(--color-text);font:inherit;font-size:13.5px;cursor:pointer">{{ q.label }}</button></sc-for></div>
+<button onClick="{{ saveProgress }}" style="height:50px;border-radius:12px;border:1px solid var(--color-accent);background:color-mix(in srgb, var(--color-accent) 10%, transparent);color:var(--color-accent-100);font:inherit;font-size:15px;font-weight:500;cursor:pointer">{{ t.save }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isReviewSheet }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="font-size:18px;font-weight:500">{{ reviewTitle }}</div>
+<textarea value="{{ reviewText }}" onChange="{{ onReview }}" rows="4" placeholder="{{ t.reviewNote }}" style="padding:10px 12px;border-radius:10px;border:1px solid var(--color-divider);background:var(--color-bg);color:var(--color-text);font:inherit;font-size:13.5px;outline:none;resize:none" style-focus="border-color:var(--color-accent)"></textarea>
+<div style="display:grid;grid-template-columns:1fr 1.4fr;gap:8px"><button onClick="{{ closeSheet }}" style="height:48px;border-radius:12px;border:1px solid var(--color-divider);background:transparent;color:var(--color-text);font:inherit;font-size:14px;cursor:pointer">{{ t.cancel }}</button><button onClick="{{ saveReview }}" style="height:48px;border-radius:12px;border:1px solid {{ reviewColor }};background:transparent;color:{{ reviewColor }};font:inherit;font-size:14px;font-weight:500;cursor:pointer;opacity:{{ reviewOpacity }}">{{ reviewBtn }}</button></div>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:380,&quot;height&quot;:800},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark'|'light'&quot;},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;focus&quot;,&quot;ledger&quot;,&quot;board&quot;],&quot;default&quot;:&quot;focus&quot;,&quot;tsType&quot;:&quot;'focus'|'ledger'|'board'&quot;},&quot;platform&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;android&quot;,&quot;ios&quot;],&quot;default&quot;:&quot;android&quot;,&quot;tsType&quot;:&quot;'android'|'ios'&quot;},&quot;as&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;&quot;,&quot;GPS-E014&quot;,&quot;GPS-H002&quot;,&quot;pradkum3639&quot;,&quot;GPS-E030&quot;],&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;screen&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;en&quot;,&quot;hi&quot;],&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;'en'|'hi'&quot;},&quot;persist&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;taskId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;jobId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;sheet&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;inboxTab&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;mgmtMode&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;}}">
+const DAY = 864e5, HR = 36e5, MIN = 6e4;
+const T0 = (() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d.getTime(); })();
+const at = (h, m = 0, d = 0) => T0 + d * DAY + h * HR + m * MIN;
+const C = { bad: 'var(--bad)', warn: 'var(--warn)', ok: 'var(--ok)', acc: 'var(--color-accent)', a3: 'var(--color-accent-300)', a4: 'var(--color-accent-400)', n4: 'var(--muted2)', n3: 'var(--color-text)', muted: 'color-mix(in srgb, var(--color-text) 60%, transparent)', div: 'var(--color-divider)' };
+const mix = (c, p = 18) => `color-mix(in srgb, ${c} ${p}%, transparent)`;
+const PRIO = { LOW: C.n4, NORMAL: C.n3, HIGH: C.a4, URGENT: C.warn, CRITICAL: C.bad };
+const PRANK = { LOW: 0, NORMAL: 1, HIGH: 2, URGENT: 3, CRITICAL: 4 };
+const STC = { todo: C.a3, ack: C.a3, progress: C.acc, blocked: C.bad, submitted: C.warn, approved: C.ok, correction: C.warn, rejected: C.bad };
+const STAGES = [['Customer order', 'ग्राहक ऑर्डर'], ['Order confirmed', 'ऑर्डर पुष्टि'], ['Artwork', 'आर्टवर्क'], ['Sample', 'सैंपल'], ['Customer approval', 'ग्राहक अनुमोदन'], ['Material preparation', 'सामग्री तैयारी'], ['Production', 'उत्पादन'], ['Quality control', 'गुणवत्ता जाँच'], ['Packing', 'पैकिंग'], ['Dispatch', 'डिस्पैच'], ['Completed', 'पूर्ण']];
+const STAGE_OWNER = ['GPS-E018', 'GPS-E018', 'GPS-E021', 'GPS-E014', 'GPS-E018', 'GPS-E022', 'GPS-E022', 'GPS-E030', 'GPS-E034', 'GPS-E034', 'GPS-H005'];
+const BLOCK_REASONS = [['Material unavailable', 'सामग्री उपलब्ध नहीं'], ['Machine issue', 'मशीन खराबी'], ['Artwork pending', 'आर्टवर्क लंबित'], ['Customer approval pending', 'ग्राहक अनुमोदन लंबित'], ['Manager approval pending', 'प्रबंधक अनुमोदन लंबित'], ['Waiting on another employee', 'दूसरे कर्मचारी पर निर्भर'], ['Technical issue', 'तकनीकी समस्या'], ['Supplier delay', 'सप्लायर देरी'], ['Quality issue', 'गुणवत्ता समस्या'], ['Other', 'अन्य']];
+const DEFECTS = [['Peeling', 'उखड़ना'], ['Colour mismatch', 'रंग मेल नहीं'], ['Misprint', 'गलत प्रिंट'], ['Wrong size', 'गलत साइज़'], ['Bubbles / wrinkles', 'बुलबुले / सिलवट'], ['Other', 'अन्य']];
+const PEOPLE = {
+  'pradkum3639': { name: 'Pradeep Aggarwal', role: 'director', dept: 'Management', desig: 'Director', mgr: null, joined: 'Apr 2006', phone: '+91 ••••• •2525' },
+  'GPS-H002': { name: 'Sunita Rawat', role: 'head', dept: 'Production', desig: 'Head — Production', mgr: 'pradkum3639', scope: ['Production'], joined: 'Jul 2014', phone: '+91 ••••• •4410' },
+  'GPS-H003': { name: 'Kavita Menon', role: 'head', dept: 'Artwork', desig: 'Head — Design & Artwork', mgr: 'pradkum3639', scope: ['Artwork'], joined: 'Jan 2017', phone: '+91 ••••• •7731' },
+  'GPS-H005': { name: 'Imran Qureshi', role: 'head', dept: 'Quality Control', desig: 'Head — QC & Dispatch', mgr: 'pradkum3639', scope: ['Quality Control', 'Dispatch'], joined: 'Mar 2016', phone: '+91 ••••• •0982' },
+  'GPS-E014': { name: 'Rahul Verma', role: 'employee', dept: 'Production', desig: 'DTF Operator', mgr: 'GPS-H002', joined: 'Aug 2021', phone: '+91 ••••• •3318' },
+  'GPS-E022': { name: 'Aman Joshi', role: 'employee', dept: 'Production', desig: 'Silicone Transfer Operator', mgr: 'GPS-H002', joined: 'Feb 2022', phone: '+91 ••••• •5520' },
+  'GPS-E021': { name: 'Neha Singh', role: 'employee', dept: 'Artwork', desig: 'Artwork Designer', mgr: 'GPS-H003', joined: 'Nov 2020', phone: '+91 ••••• •6674' },
+  'GPS-E030': { name: 'Farhan Ali', role: 'employee', dept: 'Quality Control', desig: 'QC Inspector', mgr: 'GPS-H005', joined: 'Jun 2019', phone: '+91 ••••• •1209' },
+  'GPS-E034': { name: 'Deepak Yadav', role: 'employee', dept: 'Dispatch', desig: 'Packing & Dispatch', mgr: 'GPS-H005', joined: 'Sep 2018', phone: '+91 ••••• •8841' },
+  'GPS-E018': { name: 'Pooja Sharma', role: 'employee', dept: 'Sales', desig: 'Merchandiser', mgr: 'pradkum3639', joined: 'May 2020', phone: '+91 ••••• •2297' },
+};
+const nm = id => (PEOPLE[id] || { name: id }).name;
+const first = id => nm(id).split(' ')[0];
+const initials = id => nm(id).split(' ').map(x => x[0]).join('').slice(0, 2);
+
+const L = {
+  subtitle: ['Operations • Production • People', 'संचालन • उत्पादन • लोग'], tagline: ['One Platform. Complete Visibility.', 'एक प्लेटफ़ॉर्म। पूरी पारदर्शिता।'],
+  langSwitch: ['हिंदी', 'English'], langShort: ['हिं', 'EN'],
+  empId: ['Employee ID / Email', 'कर्मचारी आईडी / ईमेल'], password: ['Password', 'पासवर्ड'], remember: ['Remember this device', 'यह डिवाइस याद रखें'], forgot: ['Forgot password?', 'पासवर्ड भूल गए?'],
+  login: ['Log in', 'लॉग इन'], checking: ['Checking…', 'जाँच हो रही है…'], demo: ['Demo accounts · password demo1234', 'डेमो खाते · पासवर्ड demo1234'],
+  demoNote: ['Director access uses a private ID and password plus 2-step verification.', 'डायरेक्टर एक्सेस निजी आईडी, पासवर्ड और 2-चरण सत्यापन से ही।'],
+  badCreds: ['ID or password is incorrect.', 'आईडी या पासवर्ड गलत है।'], attemptsLeft: ['attempts left before lock', 'प्रयास शेष, फिर लॉक'], locked: ['Too many attempts. Locked for', 'बहुत अधिक प्रयास। लॉक:'],
+  forgotMsg: ['Password reset requests go to HR/Admin. Your manager will verify your identity.', 'पासवर्ड रीसेट अनुरोध HR/एडमिन को जाता है।'],
+  secure: ['Encrypted session · Every action verified on the server', 'एन्क्रिप्टेड सत्र · हर कार्य सर्वर पर सत्यापित'],
+  mfaTitle: ['Two-step verification', 'दो-चरण सत्यापन'], mfaSub: ['Enter the 6-digit code sent to', '6 अंकों का कोड दर्ज करें, भेजा गया'], verify: ['Verify and continue', 'सत्यापित करें'], resend: ['Resend code', 'कोड फिर भेजें'], badCode: ['Incorrect code.', 'गलत कोड।'], mfaFor: ['Required for Director and Department Head accounts.', 'डायरेक्टर व विभाग प्रमुख खातों के लिए आवश्यक।'],
+  smsCode: ['SMS (simulated): your GPS Operations code is', 'SMS (सिम्युलेटेड): आपका GPS कोड है'],
+  morningHi: ['Good morning', 'सुप्रभात'], afternoonHi: ['Good afternoon', 'नमस्कार'], eveningHi: ['Good evening', 'शुभ संध्या'],
+  myWork: ['My work today', 'आज का मेरा काम'], nextUp: ['Do this next', 'अगला काम'], alsoToday: ['Also today', 'आज के अन्य काम'], deadlines: ['Deadlines', 'समय-सीमाएँ'], allClear: ['Nothing waiting on you. Nice work.', 'आपके लिए कोई काम बाकी नहीं।'], nothingHere: ['Nothing here.', 'यहाँ कुछ नहीं।'],
+  c_todo: ['To do', 'करना है'], c_progress: ['In progress', 'जारी'], c_blocked: ['Waiting / blocked', 'रुका हुआ'], c_submitted: ['Submitted', 'जमा'], c_done: ['Completed', 'पूर्ण'],
+  st_todo: ['New', 'नया'], st_ack: ['Acknowledged', 'स्वीकृत'], st_progress: ['In progress', 'जारी'], st_blocked: ['Blocked', 'रुका'], st_submitted: ['Awaiting approval', 'अनुमोदन लंबित'], st_approved: ['Approved', 'अनुमोदित'], st_correction: ['Correction', 'सुधार'], st_rejected: ['Rejected', 'अस्वीकृत'],
+  ack: ['Acknowledge task', 'काम स्वीकार करें'], start: ['Start work', 'काम शुरू करें'], resume: ['Resume work', 'काम फिर शुरू करें'], update: ['Progress', 'प्रगति'], updateLong: ['Update progress', 'प्रगति अपडेट करें'], proof: ['Proof', 'प्रमाण'], proofLong: ['Upload proof', 'प्रमाण अपलोड करें'], blocker: ['Blocker', 'रुकावट'], blockerLong: ['Report blocker', 'रुकावट बताएं'], submit: ['Submit for approval', 'अनुमोदन हेतु जमा करें'],
+  eod: ['End-of-day report', 'दिन के अंत की रिपोर्ट'], eodDue: ['Due by 7:00 PM · most of it is filled in for you', 'शाम 7 बजे तक · ज़्यादातर अपने-आप भरा'], eodSent: ['Sent to your manager at', 'आपके प्रबंधक को भेजी गई'],
+  today: ['Today', 'आज'], yesterday: ['Yesterday', 'कल'], tomorrow: ['Tomorrow', 'कल (आगामी)'], overdue: ['Overdue', 'देरी'], due: ['Due', 'नियत'], internal: ['Internal', 'आंतरिक'], open: ['open', 'खुले'], overdueN: ['overdue', 'देरी से'], blockedN: ['blocked', 'रुके'],
+  home: ['Home', 'होम'], jobs: ['Jobs', 'जॉब'], approvals: ['Approvals', 'अनुमोदन'], inbox: ['Inbox', 'सूचनाएँ'], me: ['Me', 'मैं'], report: ['Report', 'रिपोर्ट'],
+  task: ['Task', 'काम'], assignedBy: ['Assigned by', 'सौंपा'], assignedAt: ['Assigned', 'सौंपा गया'], deadline: ['Deadline', 'समय-सीमा'], owner: ['Owner', 'ज़िम्मेदार'], progressL: ['Progress', 'प्रगति'], revisions: ['revision', 'संशोधन'],
+  timeline: ['Timeline', 'समयरेखा'], timelineNote: ['Recorded by the system. Cannot be edited.', 'सिस्टम द्वारा दर्ज। बदला नहीं जा सकता।'], attachments: ['Attachments', 'संलग्नक'], comments: ['Comments', 'टिप्पणियाँ'], addComment: ['Comment — use @name to notify', 'टिप्पणी — @नाम से सूचित करें'], blockedSince: ['Blocked since', 'रुका हुआ, से'],
+  waitingReview: ['With your manager for review. You will be notified.', 'प्रबंधक समीक्षा कर रहे हैं। आपको सूचित किया जाएगा।'], approvedNote: ['Approved. No further action.', 'अनुमोदित। कोई और कार्य नहीं।'], blockedNote: ['Waiting for the blocker to be resolved. Your manager has been notified.', 'रुकावट हल होने की प्रतीक्षा। प्रबंधक को सूचित किया गया।'],
+  approve: ['Approve', 'अनुमोदित करें'], correction: ['Correction', 'सुधार'], correctionLong: ['Request correction', 'सुधार माँगें'], reject: ['Reject', 'अस्वीकार'], resolve: ['Resolve blocker', 'रुकावट हल करें'], requestUpdate: ['Request update', 'अपडेट माँगें'],
+  reasonQ: ['What is stopping the work?', 'काम क्यों रुका है?'], explain: ['Short explanation (required)', 'संक्षिप्त कारण (आवश्यक)'], reportBlk: ['Report blocker', 'रुकावट दर्ज करें'], cancel: ['Cancel', 'रद्द करें'], save: ['Save', 'सहेजें'],
+  reviewNote: ['What needs to change? (sent to employee)', 'क्या बदलना है? (कर्मचारी को भेजा जाएगा)'], sendBack: ['Send back', 'वापस भेजें'], confirmReject: ['Reject task', 'काम अस्वीकार करें'],
+  noApprovals: ['Nothing waiting for approval.', 'कोई अनुमोदन लंबित नहीं।'], submittedAt: ['Submitted', 'जमा'], files: ['files', 'फ़ाइलें'],
+  alerts: ['Alerts', 'अलर्ट'], announcements: ['Announcements', 'घोषणाएँ'], acknowledge: ['Acknowledge', 'स्वीकार करें'], acknowledged: ['Acknowledged', 'स्वीकार किया'], ackBy: ['acknowledged', 'ने स्वीकार किया'],
+  prodJobs: ['Production jobs', 'उत्पादन जॉब'], stage: ['Stage', 'चरण'], deliver: ['Delivery', 'डिलीवरी'], atRisk: ['At risk', 'जोखिम'], onTrack: ['On track', 'सही समय पर'],
+  ordered: ['Ordered', 'ऑर्डर'], produced: ['Produced', 'उत्पादित'], qcPassed: ['QC passed', 'QC पास'], qcRejected: ['QC rejected', 'QC अस्वीकृत'], rework: ['Rework', 'दोबारा काम'], packed: ['Packed', 'पैक'], dispatched: ['Dispatched', 'भेजा'],
+  stages: ['Job stages', 'जॉब चरण'], recordQc: ['Record QC check', 'QC जाँच दर्ज करें'], completeStage: ['Complete current stage', 'वर्तमान चरण पूरा करें'], qcLog: ['QC records', 'QC रिकॉर्ड'], started: ['Started', 'शुरू'],
+  qcTitle: ['Quality check', 'गुणवत्ता जाँच'], qChecked: ['Quantity checked', 'जाँची मात्रा'], qPassed: ['Passed', 'पास'], qRejected: ['Rejected (auto)', 'अस्वीकृत (स्वतः)'], defect: ['Defect category', 'दोष श्रेणी'], defectReason: ['Reason / notes', 'कारण / नोट'], corrective: ['Corrective action', 'सुधारात्मक कार्य'], reworkReq: ['Rework required', 'दोबारा काम आवश्यक'], qcPhoto: ['Add defect photo', 'दोष की फ़ोटो जोड़ें'], saveQc: ['Save QC record', 'QC रिकॉर्ड सहेजें'],
+  summary: ["Today's summary", 'आज का सारांश'], autoGen: ['Generated from your recorded activity', 'आपकी दर्ज गतिविधि से बना'], s_assigned: ['Assigned', 'सौंपे'], s_started: ['Started', 'शुरू'], s_submitted: ['Submitted', 'जमा'], s_approved: ['Approved', 'अनुमोदित'], s_pending: ['Pending', 'लंबित'], s_blocked: ['Blocked', 'रुके'],
+  q_unfinished: ['What remains unfinished?', 'क्या अधूरा है?'], q_why: ['Why is it unfinished?', 'क्यों अधूरा है?'], q_tomorrow: ['What will you work on tomorrow?', 'कल क्या करेंगे?'], q_help: ['Do you need assistance, material or approval?', 'क्या सहायता, सामग्री या अनुमोदन चाहिए?'], q_extra: ['Additional comments', 'अन्य टिप्पणी'], submitReport: ['Submit report', 'रिपोर्ट जमा करें'],
+  profile: ['Profile', 'प्रोफ़ाइल'], empIdL: ['Employee ID', 'कर्मचारी आईडी'], deptL: ['Department', 'विभाग'], mgrL: ['Manager', 'प्रबंधक'], joinedL: ['Joined', 'जुड़े'], statusL: ['Status', 'स्थिति'], active: ['Active', 'सक्रिय'], language: ['Language', 'भाषा'], appearance: ['Appearance', 'रूप'], dark: ['Dark', 'डार्क'], light: ['Light', 'लाइट'],
+  p_assigned: ['Assigned', 'सौंपे'], p_completed: ['Approved', 'अनुमोदित'], p_ontime: ['On time', 'समय पर'], p_overdue: ['Overdue', 'देरी'], p_rework: ['Rework', 'संशोधन'], p_blocked: ['Blocked time', 'रुका समय'], factsNote: ['Facts from recorded work — not a rating.', 'दर्ज काम से तथ्य — कोई रेटिंग नहीं।'],
+  dataL: ['Data & records', 'डेटा व रिकॉर्ड'], exportX: ['Download Excel register', 'एक्सेल रजिस्टर डाउनलोड'], exportMine: ['Download my work history (Excel)', 'मेरा कार्य इतिहास (एक्सेल)'], exportSub: ['Employees, tasks, jobs, reports and audit log as sheets', 'कर्मचारी, काम, जॉब, रिपोर्ट व ऑडिट शीट्स'],
+  sessions: ['Signed-in devices', 'साइन-इन डिवाइस'], signOutOthers: ['Sign out other devices', 'अन्य डिवाइस से साइन आउट'], auditL: ['Audit log', 'ऑडिट लॉग'], logout: ['Log out', 'लॉग आउट'], thisDevice: ['This device · active now', 'यह डिवाइस · अभी सक्रिय'],
+  control: ['Control room', 'कंट्रोल रूम'], morning: ['Morning', 'सुबह'], evening: ['Evening', 'शाम'], gmOps: ['GPS Operations', 'GPS ऑपरेशंस'], attention: ['Needs your attention', 'आपका ध्यान चाहिए'], dirAttention: ['Requires director attention', 'डायरेक्टर का ध्यान आवश्यक'], team: ['Workload', 'कार्यभार'], create: ['New task', 'नया काम'],
+  k_active: ['Active tasks', 'सक्रिय काम'], k_due: ['Due today', 'आज नियत'], k_overdue: ['Overdue', 'देरी'], k_blocked: ['Blocked', 'रुके'], k_awaiting: ['Awaiting approval', 'अनुमोदन लंबित'], k_critical: ['Urgent / critical', 'अति आवश्यक'], k_completed: ['Approved today', 'आज अनुमोदित'], k_jobs: ['Production jobs', 'उत्पादन जॉब'], k_dispatch: ['Dispatches due', 'डिस्पैच नियत'],
+  e_planned: ['Planned today', 'आज नियोजित'], e_done: ['Approved today', 'आज अनुमोदित'], e_notdone: ['Not completed', 'पूरा नहीं'], e_delayed: ['Delayed', 'देरी'], e_blocked: ['Blocked', 'रुके'], e_awaiting: ['Awaiting approval', 'अनुमोदन लंबित'], e_prod: ['Production output', 'उत्पादन'], e_dispatch: ['Dispatch status', 'डिस्पैच स्थिति'],
+  newTask: ['New task', 'नया काम'], f_title: ['Task title', 'काम का शीर्षक'], f_desc: ['Instructions', 'निर्देश'], f_assignee: ['Assign to', 'किसे सौंपें'], f_job: ['Related job', 'संबंधित जॉब'], f_prio: ['Priority', 'प्राथमिकता'], f_due: ['Deadline', 'समय-सीमा'], f_approval: ['Approval required', 'अनुमोदन आवश्यक'], assign: ['Assign task', 'काम सौंपें'], none: ['None', 'कोई नहीं'],
+  proofTitle: ['Upload proof', 'प्रमाण अपलोड'], takePhoto: ['Take photo or choose file', 'फ़ोटो लें या फ़ाइल चुनें'], proofHint: ['Photos, PDFs, artwork files · up to 20 MB each', 'फ़ोटो, PDF, आर्टवर्क · 20 MB तक'], attach: ['Attach to task', 'काम से जोड़ें'], note: ['Note (optional)', 'नोट (वैकल्पिक)'],
+  sessionExpired: ['Session expired after inactivity. Please log in again.', 'निष्क्रियता के कारण सत्र समाप्त।'], saved: ['Saved', 'सहेजा गया'],
+};
+
+function seed(now) {
+  const mk = (id, title, job, prio, assignee, by, created, due, status, progress, hist = [], extra = {}) => {
+    const history = [{ at: created, text: 'Task created by ' + nm(by), by }, { at: created + 2 * MIN, text: 'Assigned to ' + nm(assignee), by }];
+    hist.forEach(([t, x, b]) => history.push({ at: t, text: x, by: b || assignee }));
+    return { id, title, job, prio, assignee, by, createdAt: created, due, status, progress, revisions: 0, history, comments: [], files: [], block: null, dept: PEOPLE[assignee].dept, approval: true, ...extra };
+  };
+  const tasks = [
+    mk('T-1047', 'Peel & wash test — BlueHarbor batch 3', 'GPS-2026-00021', 'URGENT', 'GPS-E014', 'GPS-H005', at(13, 50), at(15, 30), 'todo', 0),
+    mk('T-1042', 'Print DTF film — BlueHarbor sleeve logo', 'GPS-2026-00021', 'HIGH', 'GPS-E014', 'GPS-H002', at(9, 2), at(17, 0), 'progress', 40,
+      [[at(9, 11), 'Acknowledged by Rahul Verma'], [at(9, 26), 'Work started'], [at(12, 15), 'Progress changed to 40%']],
+      { comments: [{ at: at(10, 40), by: 'GPS-H002', text: '@Rahul sleeve logo is 9 cm wide, not 10. Check before the full run.' }], files: [{ name: 'sleeve-logo-v2.pdf', at: at(9, 2), by: 'GPS-H002' }] }),
+    mk('T-1039', 'Reprint 120 rejected Northline transfers', 'GPS-2026-00017', 'NORMAL', 'GPS-E014', 'GPS-H002', at(8, 40), at(18, 0), 'blocked', 15,
+      [[at(9, 5), 'Acknowledged by Rahul Verma'], [at(10, 2), 'Work started'], [at(11, 20), 'Marked blocked'], [at(11, 20), 'Reason: Material unavailable — White TPU film roll out of stock; stores expects Thursday.']],
+      { block: { reason: 'Material unavailable', text: 'White TPU film roll out of stock; stores expects Thursday.', at: at(11, 20), by: 'GPS-E014' } }),
+    mk('T-1051', 'Clean & calibrate DTF print head', null, 'NORMAL', 'GPS-E014', 'GPS-H002', at(11, 0), at(10, 0, 1), 'ack', 0, [[at(11, 30), 'Acknowledged by Rahul Verma']]),
+    mk('T-1033', 'Nest gang sheet 2 — BlueHarbor', 'GPS-2026-00021', 'HIGH', 'GPS-E014', 'GPS-H002', at(8, 30), at(14, 0), 'submitted', 100,
+      [[at(8, 41), 'Acknowledged by Rahul Verma'], [at(8, 50), 'Work started'], [at(12, 58), 'Uploaded 1 file'], [at(13, 5), 'Submitted for approval']],
+      { submittedAt: at(13, 5), files: [{ name: 'gang-sheet-2.png', at: at(12, 58), by: 'GPS-E014' }] }),
+    mk('T-1028', 'Print DTF film — Kavya neck labels', 'GPS-2026-00012', 'NORMAL', 'GPS-E014', 'GPS-H002', at(15, 0, -1), at(12, 0), 'approved', 100,
+      [[at(15, 20, -1), 'Acknowledged by Rahul Verma'], [at(9, 30), 'Work started'], [at(11, 10), 'Submitted for approval'], [at(11, 48), 'Approved by Sunita Rawat', 'GPS-H002']], { approvedAt: at(11, 48) }),
+    mk('T-1044', 'Silicone press run — 2,000 pcs Northline', 'GPS-2026-00017', 'CRITICAL', 'GPS-E022', 'GPS-H002', at(8, 15), at(18, 0), 'progress', 70, [[at(8, 20), 'Acknowledged by Aman Joshi'], [at(8, 32), 'Work started'], [at(13, 40), 'Progress changed to 70%']]),
+    mk('T-1045', 'Deep-clean silicone mold #4', null, 'NORMAL', 'GPS-E022', 'GPS-H002', at(10, 0, -2), at(17, 0, -1), 'progress', 20, [[at(10, 30, -2), 'Acknowledged by Aman Joshi'], [at(14, 0, -1), 'Work started'], [at(16, 10, -1), 'Progress changed to 20%']]),
+    mk('T-1040', 'Revise Trailmark reflective artwork v3', 'GPS-2026-00018', 'HIGH', 'GPS-E021', 'GPS-H003', at(9, 30, -1), at(16, 0), 'correction', 80,
+      [[at(9, 45, -1), 'Acknowledged by Neha Singh'], [at(10, 0, -1), 'Work started'], [at(17, 20, -1), 'Submitted for approval'], [at(10, 5), 'Correction requested by Kavita Menon: reflective strip must be 5 mm from the edge', 'GPS-H003']], { revisions: 1 }),
+    mk('T-1049', 'Puff separations — Stitchcraft kids range', 'GPS-2026-00024', 'NORMAL', 'GPS-E021', 'GPS-H003', at(9, 0), at(17, 0), 'submitted', 100, [[at(9, 10), 'Acknowledged by Neha Singh'], [at(9, 15), 'Work started'], [at(12, 40), 'Submitted for approval']], { submittedAt: at(12, 40) }),
+    mk('T-1036', 'QC batch 2 — Northline chest logo', 'GPS-2026-00017', 'HIGH', 'GPS-E030', 'GPS-H005', at(8, 0), at(13, 0), 'submitted', 100, [[at(8, 5), 'Acknowledged by Farhan Ali'], [at(8, 10), 'Work started'], [at(12, 30), 'Submitted for approval']], { submittedAt: at(12, 30) }),
+    mk('T-1053', 'First-off inspection — BlueHarbor DTF', 'GPS-2026-00021', 'URGENT', 'GPS-E030', 'GPS-H005', at(13, 0), at(15, 0), 'todo', 0),
+    mk('T-1052', 'Pack & dispatch Kavya order', 'GPS-2026-00012', 'URGENT', 'GPS-E034', 'GPS-H005', at(9, 0), at(16, 0), 'progress', 30, [[at(9, 3), 'Acknowledged by Deepak Yadav'], [at(10, 0), 'Work started'], [at(12, 0), 'Progress changed to 30%']]),
+    mk('T-1030', 'Get Trailmark sample approval', 'GPS-2026-00018', 'HIGH', 'GPS-E018', 'pradkum3639', at(10, 0, -2), at(18, 0, -1), 'blocked', 50,
+      [[at(10, 20, -2), 'Acknowledged by Pooja Sharma'], [at(11, 0, -2), 'Work started'], [at(15, 0, -1), 'Marked blocked'], [at(15, 0, -1), 'Reason: Customer approval pending — Buyer travelling, promised feedback by Wednesday.']],
+      { block: { reason: 'Customer approval pending', text: 'Buyer travelling, promised feedback by Wednesday.', at: at(15, 0, -1), by: 'GPS-E018' } }),
+  ];
+  const job = (id, customer, brand, po, product, tech, qty, deliver, stage, p, notes) => ({
+    id, customer, brand, po, product, tech, qty, deliver, stage, notes, mgr: 'GPS-H002',
+    stageTimes: Array.from({ length: stage }, (_, i) => T0 - (stage - i) * DAY * 0.7 + 11 * HR), produced: 0, qcPassed: 0, qcRejected: 0, rework: 0, packed: 0, dispatched: 0, qcLog: [], ...p,
+  });
+  const jobs = [
+    job('GPS-2026-00021', 'BlueHarbor Uniforms', 'BlueHarbor', 'BH-2291', 'Sleeve & chest logos', 'DTF Printing', 2500, at(18, 0, 1), 7, { produced: 1400, qcPassed: 900, qcRejected: 60, rework: 40 }, 'Hospital staff uniforms. Colour must match Pantone 2945C.'),
+    job('GPS-2026-00017', 'Northline Activewear', 'Northline', 'NL-4471', 'Chest logo transfers', 'Silicone Heat Transfer', 10000, at(18, 0, 2), 6, { produced: 8200, qcPassed: 7650, qcRejected: 180, rework: 120, packed: 6000, qcLog: [{ at: at(12, 30), by: 'GPS-E030', checked: 2000, passed: 1920, rejected: 80, defect: 'Peeling', action: 'Increase press time by 2 s', rework: true }] }, 'Running on press 2 and 3.'),
+    job('GPS-2026-00012', 'Kavya Ethnic', 'Kavya', 'KE-0877', 'Neck labels', 'Embroidery Transfers', 1200, at(17, 0), 9, { produced: 1200, qcPassed: 1188, qcRejected: 12, packed: 1188 }, 'Courier pickup 5 PM.'),
+    job('GPS-2026-00018', 'Trailmark Outdoor', 'Trailmark', 'TM-3310', 'Back-panel reflective', 'Reflective Transfer', 4000, at(18, 0, 5), 4, {}, 'Waiting on buyer sample sign-off.'),
+    job('GPS-2026-00024', 'Stitchcraft Kids', 'Stitchcraft', 'SK-1204', 'Front graphics', 'Puff', 3000, at(18, 0, 9), 2, {}, 'Three colourways.'),
+  ];
+  const notifs = [
+    { id: 'n1', to: 'GPS-E014', at: at(13, 50), text: 'Imran Qureshi assigned you T-1047 · Peel & wash test (URGENT)', icon: 'ph-clipboard-text', ref: 'T-1047' },
+    { id: 'n2', to: 'GPS-E014', at: at(11, 48), text: 'T-1028 approved by Sunita Rawat', icon: 'ph-check-circle', ref: 'T-1028', read: true },
+    { id: 'n3', to: 'GPS-E014', at: at(10, 40), text: 'Sunita Rawat mentioned you on T-1042', icon: 'ph-at', ref: 'T-1042', read: true },
+    { id: 'n4', to: 'GPS-H002', at: at(13, 5), text: 'Rahul Verma submitted T-1033 for approval', icon: 'ph-paper-plane-tilt', ref: 'T-1033' },
+    { id: 'n5', to: 'GPS-H002', at: at(11, 20), text: 'T-1039 blocked · Material unavailable', icon: 'ph-hand', ref: 'T-1039' },
+    { id: 'n6', to: 'pradkum3639', at: at(13, 0), text: 'GPS-2026-00021 at risk · BlueHarbor delivery tomorrow, still in QC', icon: 'ph-warning', job: 'GPS-2026-00021' },
+    { id: 'n7', to: 'pradkum3639', at: at(9, 0), text: 'T-1030 blocked for over 20 hours · Customer approval pending', icon: 'ph-hand', ref: 'T-1030' },
+    { id: 'n8', to: 'GPS-H005', at: at(12, 30), text: 'Farhan Ali submitted T-1036 for approval', icon: 'ph-paper-plane-tilt', ref: 'T-1036' },
+    { id: 'n9', to: 'GPS-H003', at: at(12, 40), text: 'Neha Singh submitted T-1049 for approval', icon: 'ph-paper-plane-tilt', ref: 'T-1049' },
+  ];
+  const anns = [
+    { id: 'a1', title: 'Diwali dispatch cut-off: 28 October', body: 'All festive orders must clear QC by 26 Oct. Packing runs a double shift from 24 Oct.', at: at(9, 0), by: 'pradkum3639', urgent: true, acks: { 'GPS-H002': at(9, 20), 'GPS-E022': at(9, 40), 'GPS-E034': at(10, 5) } },
+    { id: 'a2', title: 'New QC defect codes from Monday', body: 'Use the six defect categories in the app. Always attach a photo for rejects above 20 pcs.', at: at(16, 0, -1), by: 'GPS-H005', urgent: false, acks: { 'GPS-E030': at(16, 30, -1), 'GPS-E014': at(9, 12) } },
+  ];
+  const audit = [
+    { at: at(11, 48), by: 'GPS-H002', action: 'Approved task', record: 'T-1028', old: 'submitted', nw: 'approved' },
+    { at: at(10, 5), by: 'GPS-H003', action: 'Requested correction', record: 'T-1040', old: 'submitted', nw: 'correction' },
+    { at: at(9, 0), by: 'pradkum3639', action: 'Published announcement', record: 'a1', old: '', nw: 'Diwali dispatch cut-off' },
+  ];
+  return { tasks, jobs, notifs, anns, audit, reports: [] };
+}
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.loadT = Date.now();
+    this.scrollRef = React.createRef();
+    const p = props || {};
+    let saved = null;
+    if (p.persist) { try { saved = JSON.parse(localStorage.getItem('gps-ops-proto-v1') || 'null'); } catch (e) { } }
+    const user = saved ? saved.user : (p.as && PEOPLE[p.as] ? p.as : null);
+    this.state = {
+      db: saved ? saved.db : seed(), user, lang: saved ? saved.lang : (p.lang || 'en'), theme: (saved && saved.theme) || p.theme || 'dark',
+      screen: user ? (p.screen && !['login', 'mfa'].includes(p.screen) ? p.screen : 'home') : (p.screen === 'mfa' ? 'mfa' : 'login'),
+      stack: [], taskId: p.taskId || 'T-1042', jobId: p.jobId || 'GPS-2026-00017', listKey: 'overdue',
+      sheet: p.sheet || null, sheetTask: p.taskId || 'T-1042', reviewKind: 'correction',
+      loginId: p.screen === 'mfa' ? 'pradkum3639' : '', loginPw: '', showPw: false, remember: true, loginErr: '', fails: 0, lockUntil: 0, busy: false,
+      pending: p.screen === 'mfa' ? 'pradkum3639' : null, mfaCode: '482913', mfaInput: '', mfaErr: '', mfaFails: 0,
+      toast: null, filter: 'todo', mgmtMode: p.mgmtMode || 'morning', inboxTab: p.inboxTab || 'alerts',
+      comment: '', blockReason: p.sheet === 'blocker' ? 'Machine issue' : '', blockText: '', progVal: 40, reviewText: '',
+      eod: null, qc: { checked: '', passed: '', defect: '', reason: '', action: '', rework: false, photo: null },
+      nt: { title: '', desc: '', assignee: '', job: '', prio: 'NORMAL', day: 'today', time: '17:00', approval: true },
+      proofs: [], proofNote: '', lastActive: Date.now(),
+    };
+  }
+  componentDidMount() {
+    if (this.state.user && this.state.screen === 'eod') { const st = this.state.stack; this.startEod(); this.setState({ stack: st }); }
+    this.tick = setInterval(() => {
+      const s = this.state;
+      if (s.user && this.props.persist && Date.now() - s.lastActive > 15 * MIN) { this.setState({ user: null, screen: 'login', stack: [] }); this.flash(this.t('sessionExpired'), 'ph-clock-countdown'); return; }
+      if (s.lockUntil > Date.now() || s.lockUntil) { if (s.lockUntil && s.lockUntil <= Date.now()) this.setState({ lockUntil: 0, loginErr: '' }); else this.forceUpdate(); }
+      else if (this.state.screen === 'home') this.forceUpdate();
+    }, 1000 * (this.state.lockUntil ? 1 : 1));
+  }
+  componentWillUnmount() { clearInterval(this.tick); clearTimeout(this.tt); }
+  componentDidUpdate(pp, ps) {
+    if (this.props.persist) { try { localStorage.setItem('gps-ops-proto-v1', JSON.stringify({ db: this.state.db, user: this.state.user, lang: this.state.lang, theme: this.state.theme })); } catch (e) { } }
+    if (ps.screen !== this.state.screen && this.scrollRef.current) this.scrollRef.current.scrollTop = 0;
+  }
+  now() { return at(14, 35) + (Date.now() - this.loadT); }
+  t(k) { const v = L[k]; return v ? v[this.state.lang === 'hi' ? 1 : 0] : k; }
+  fmtT(ts) { const d = new Date(ts); const h = d.getHours(), m = d.getMinutes(); return (h % 12 || 12) + ':' + String(m).padStart(2, '0') + ' ' + (h < 12 ? 'AM' : 'PM'); }
+  dayOff(ts) { return Math.floor((ts - T0) / DAY); }
+  fmtDT(ts) { const o = this.dayOff(ts); const tm = this.fmtT(ts); if (o === 0) return this.t('today') + ' ' + tm; if (o === -1) return this.t('yesterday') + ' ' + tm; if (o === 1) return this.t('tomorrow') + ' ' + tm; return new Date(ts).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) + ' ' + tm; }
+  dur(ms) { const m = Math.max(0, Math.round(ms / MIN)); const h = Math.floor(m / 60); return h ? h + 'h ' + (m % 60) + 'm' : m + 'm'; }
+  flash(text, icon = 'ph-check-circle', ms = 3200) { clearTimeout(this.tt); this.setState({ toast: { text, icon } }); this.tt = setTimeout(() => this.setState({ toast: null }), ms); }
+  set(p) { this.setState({ ...p, lastActive: Date.now() }); }
+  go(screen, extra = {}) { this.set({ stack: [...this.state.stack, { screen: this.state.screen, taskId: this.state.taskId, jobId: this.state.jobId }], screen, sheet: null, ...extra }); }
+  tab(screen) { this.set({ stack: [], screen, sheet: null }); }
+  back() { const st = [...this.state.stack]; const p = st.pop(); if (p) this.set({ ...p, stack: st, sheet: null }); else this.set({ screen: 'home' }); }
+  mut(fn, msg, icon) { const db = JSON.parse(JSON.stringify(this.state.db)); fn(db); this.set({ db }); if (msg) this.flash(msg, icon); }
+  hist(task, text) { task.history.push({ at: this.now(), text, by: this.state.user }); }
+  notify(db, to, text, icon, ref, job) { if (!to || to === this.state.user) return; db.notifs.unshift({ id: 'n' + Math.random().toString(36).slice(2, 8), to, at: this.now(), text, icon, ref, job }); }
+  audit(db, action, record, old, nw) { db.audit.unshift({ at: this.now(), by: this.state.user, action, record, old: old || '', nw: nw || '' }); }
+  task(db, id) { return db.tasks.find(x => x.id === id); }
+  isMgmt() { const u = PEOPLE[this.state.user]; return !!u && (u.role === 'director' || u.role === 'head'); }
+  canManage(tk) { const u = PEOPLE[this.state.user]; if (!u) return false; if (u.role === 'director') return true; return u.role === 'head' && u.scope.includes(tk.dept); }
+  scopeTasks() { const s = this.state, u = PEOPLE[s.user]; if (!u) return []; if (u.role === 'director') return s.db.tasks; if (u.role === 'head') return s.db.tasks.filter(x => u.scope.includes(x.dept)); return s.db.tasks.filter(x => x.assignee === s.user); }
+  isOverdue(x, now) { return x.due < now && !['approved', 'rejected', 'submitted'].includes(x.status); }
+
+  async doLogin() {
+    const s = this.state; if (s.busy) return;
+    if (s.lockUntil > Date.now()) return;
+    const id = s.loginId.trim(); const pw = s.loginPw;
+    if (!id || !pw) { this.setState({ loginErr: this.t('badCreds') }); return; }
+    this.setState({ busy: true });
+    await new Promise(r => setTimeout(r, 450));
+    let ok = false, uid = null;
+    if (id.toLowerCase() === 'pradkum3639') {
+      // Public demo build: the Director signs in with the demo password. No real password or password hash is kept in this file.
+      ok = pw === 'demo1234'; uid = 'pradkum3639';
+    } else {
+      uid = Object.keys(PEOPLE).find(k => k.toLowerCase() === id.toLowerCase() && k !== 'pradkum3639');
+      ok = !!uid && pw === 'demo1234';
+    }
+    if (!ok) {
+      const fails = s.fails + 1;
+      const lock = fails >= 5;
+      this.setState({ busy: false, fails: lock ? 0 : fails, lockUntil: lock ? Date.now() + 60000 : 0, loginPw: '', loginErr: lock ? '' : this.t('badCreds') + ' ' + (5 - fails) + ' ' + this.t('attemptsLeft') });
+      return;
+    }
+    const role = PEOPLE[uid].role;
+    if (role === 'director' || role === 'head') {
+      const code = String(Math.floor(100000 + Math.random() * 900000));
+      this.setState({ busy: false, pending: uid, mfaCode: code, mfaInput: '', mfaErr: '', mfaFails: 0, screen: 'mfa', loginPw: '', fails: 0, loginErr: '' });
+      this.flash(this.t('smsCode') + ' ' + code, 'ph-chat-text', 9000);
+    } else this.finishLogin(uid);
+  }
+  finishLogin(uid) {
+    const db = JSON.parse(JSON.stringify(this.state.db));
+    db.audit.unshift({ at: this.now(), by: uid, action: 'Logged in', record: 'session', old: '', nw: 'Android · Chrome' + (PEOPLE[uid].role !== 'employee' ? ' · 2FA' : '') });
+    this.set({ db, user: uid, pending: null, screen: 'home', stack: [], loginPw: '', loginId: this.state.remember ? this.state.loginId : '', busy: false, fails: 0, filter: 'todo', eod: null });
+  }
+  verifyMfa() {
+    const s = this.state;
+    if (s.mfaInput.trim() === s.mfaCode) { this.setState({ toast: null }); this.finishLogin(s.pending); return; }
+    const f = s.mfaFails + 1;
+    if (f >= 3) { this.setState({ screen: 'login', pending: null, mfaInput: '', loginErr: this.t('badCode') }); return; }
+    this.setState({ mfaFails: f, mfaErr: this.t('badCode'), mfaInput: '' });
+  }
+  logout() { this.mut(db => this.audit(db, 'Logged out', 'session')); this.setState({ user: null, screen: 'login', stack: [], sheet: null }); }
+
+  act(id, kind) {
+    const me = this.state.user;
+    this.mut(db => {
+      const x = this.task(db, id); const mgr = PEOPLE[x.assignee].mgr;
+      if (kind === 'ack') { x.status = 'ack'; this.hist(x, 'Acknowledged by ' + nm(me)); this.notify(db, x.by, nm(me) + ' acknowledged ' + x.id, 'ph-check', x.id); }
+      if (kind === 'start') { const res = x.status === 'correction'; x.status = 'progress'; if (!x.startedAt) x.startedAt = this.now(); this.hist(x, res ? 'Work resumed after correction' : 'Work started'); }
+      if (kind === 'submit') { x.status = 'submitted'; x.progress = 100; x.submittedAt = this.now(); this.hist(x, 'Submitted for approval'); this.notify(db, mgr, nm(me) + ' submitted ' + x.id + ' for approval', 'ph-paper-plane-tilt', x.id); }
+      if (kind === 'approve') { const o = x.status; x.status = 'approved'; x.approvedAt = this.now(); this.hist(x, 'Approved by ' + nm(me)); this.notify(db, x.assignee, x.id + ' approved by ' + nm(me), 'ph-check-circle', x.id); this.audit(db, 'Approved task', x.id, o, 'approved'); }
+      if (kind === 'resolve') { x.status = 'progress'; x.block = { ...x.block, resolvedBy: me, resolvedAt: this.now() }; this.hist(x, 'Blocker resolved by ' + nm(me)); this.notify(db, x.assignee, 'Blocker on ' + x.id + ' resolved — you can resume', 'ph-lock-open', x.id); this.audit(db, 'Resolved blocker', x.id, 'blocked', 'progress'); }
+      if (kind === 'nudge') { this.hist(x, 'Update requested by ' + nm(me)); this.notify(db, x.assignee, nm(me) + ' requested an update on ' + x.id, 'ph-bell-ringing', x.id); }
+    }, { ack: this.t('st_ack'), start: this.t('st_progress'), submit: this.t('st_submitted'), approve: this.t('st_approved'), resolve: this.t('st_progress'), nudge: this.t('requestUpdate') }[kind]);
+  }
+  saveProgress() { const { sheetTask, progVal } = this.state; this.mut(db => { const x = this.task(db, sheetTask); x.progress = progVal; this.hist(x, 'Progress changed to ' + progVal + '%'); }, this.t('saved')); this.set({ sheet: null }); }
+  saveBlock() {
+    const { sheetTask, blockReason, blockText } = this.state; if (!blockReason || blockText.trim().length < 5) return;
+    this.mut(db => { const x = this.task(db, sheetTask); x.status = 'blocked'; x.block = { reason: blockReason, text: blockText.trim(), at: this.now(), by: this.state.user }; this.hist(x, 'Marked blocked'); this.hist(x, 'Reason: ' + blockReason + ' — ' + blockText.trim()); this.notify(db, PEOPLE[x.assignee].mgr, x.id + ' blocked · ' + blockReason, 'ph-hand', x.id); }, this.t('st_blocked'), 'ph-hand');
+    this.set({ sheet: null, blockReason: '', blockText: '' });
+  }
+  saveReview() {
+    const { sheetTask, reviewKind, reviewText } = this.state; if (reviewText.trim().length < 3) return;
+    this.mut(db => { const x = this.task(db, sheetTask); const o = x.status;
+      if (reviewKind === 'correction') { x.status = 'correction'; x.revisions++; this.hist(x, 'Correction requested by ' + nm(this.state.user) + ': ' + reviewText.trim()); this.notify(db, x.assignee, 'Correction requested on ' + x.id + ': ' + reviewText.trim(), 'ph-arrow-counter-clockwise', x.id); }
+      else { x.status = 'rejected'; this.hist(x, 'Rejected by ' + nm(this.state.user) + ': ' + reviewText.trim()); this.notify(db, x.assignee, x.id + ' rejected: ' + reviewText.trim(), 'ph-x-circle', x.id); }
+      this.audit(db, reviewKind === 'correction' ? 'Requested correction' : 'Rejected task', x.id, o, x.status);
+    }, reviewKind === 'correction' ? this.t('st_correction') : this.t('st_rejected'));
+    this.set({ sheet: null, reviewText: '' });
+  }
+  addComment() {
+    const txt = this.state.comment.trim(); if (!txt) return; const id = this.state.taskId;
+    this.mut(db => { const x = this.task(db, id); x.comments.push({ at: this.now(), by: this.state.user, text: txt });
+      Object.keys(PEOPLE).forEach(k => { if (txt.toLowerCase().includes('@' + first(k).toLowerCase())) this.notify(db, k, nm(this.state.user) + ' mentioned you on ' + id, 'ph-at', id); });
+      if (x.assignee !== this.state.user) this.notify(db, x.assignee, nm(this.state.user) + ' commented on ' + id, 'ph-chat-circle', id); });
+    this.set({ comment: '' });
+  }
+  onFiles(e) { const fs = [...(e.target.files || [])].slice(0, 8).map(f => ({ name: f.name, size: Math.round(f.size / 1024) + ' KB', url: f.type.startsWith('image/') ? URL.createObjectURL(f) : null })); this.set({ proofs: [...this.state.proofs, ...fs] }); e.target.value = ''; }
+  saveProofs() {
+    const { proofs, taskId, proofNote } = this.state; if (!proofs.length) return;
+    this.mut(db => { const x = this.task(db, taskId); proofs.forEach(p => x.files.push({ name: p.name, at: this.now(), by: this.state.user, url: p.url })); this.hist(x, 'Uploaded ' + proofs.length + ' file' + (proofs.length > 1 ? 's' : '') + (proofNote ? ' — ' + proofNote : '')); }, this.t('saved'));
+    this.set({ proofs: [], proofNote: '' }); this.back();
+  }
+  eodSummary() {
+    const s = this.state, me = s.user; const mine = s.db.tasks.filter(x => x.assignee === me);
+    const ev = txt => mine.filter(x => x.history.some(h => h.at >= T0 && h.text.startsWith(txt))).length;
+    return { assigned: mine.filter(x => x.createdAt >= T0).length, started: ev('Work started') + ev('Work resumed'), submitted: ev('Submitted'), approved: mine.filter(x => x.approvedAt >= T0).length, pending: mine.filter(x => ['todo', 'ack', 'progress', 'correction'].includes(x.status)).length, blocked: mine.filter(x => x.status === 'blocked').length, open: mine.filter(x => ['todo', 'ack', 'progress', 'correction', 'blocked'].includes(x.status)) };
+  }
+  startEod() {
+    const sm = this.eodSummary();
+    const e = this.state.eod || { unfinished: sm.open.map(x => x.id + ' ' + x.title + ' (' + x.progress + '%)').join('\n'), why: sm.open.filter(x => x.block).map(x => x.id + ': ' + x.block.reason).join('\n'), tomorrow: '', help: '', extra: '' };
+    this.go('eod', { eod: e });
+  }
+  submitEod() {
+    const e = this.state.eod; const sm = this.eodSummary();
+    this.mut(db => { db.reports.unshift({ by: this.state.user, at: this.now(), ...e, summary: { ...sm, open: sm.open.length } }); this.notify(db, PEOPLE[this.state.user].mgr, nm(this.state.user) + ' submitted the end-of-day report', 'ph-note', null); }, this.t('eodSent') + ' ' + this.fmtT(this.now()));
+    this.back();
+  }
+  saveQc() {
+    const q = this.state.qc; const ch = +q.checked, ps = +q.passed; if (!ch || ps > ch || q.passed === '') return; const rj = ch - ps; const id = this.state.jobId;
+    this.mut(db => { const j = db.jobs.find(x => x.id === id); j.qcPassed += ps; j.qcRejected += rj; if (q.rework) j.rework += rj;
+      j.qcLog.unshift({ at: this.now(), by: this.state.user, checked: ch, passed: ps, rejected: rj, defect: q.defect || '—', reason: q.reason, action: q.action, rework: q.rework, photo: !!q.photo });
+      this.audit(db, 'QC record', id, '', ch + ' checked / ' + rj + ' rejected'); if (rj > 0) this.notify(db, j.mgr, 'QC on ' + id + ': ' + rj + ' rejected (' + (q.defect || 'unspecified') + ')', 'ph-seal-warning', null, id); }, this.t('saved'));
+    this.set({ qc: { checked: '', passed: '', defect: '', reason: '', action: '', rework: false, photo: null } }); this.back();
+  }
+  advanceStage() { const id = this.state.jobId; this.mut(db => { const j = db.jobs.find(x => x.id === id); if (j.stage >= 10) return; const o = STAGES[j.stage][0]; j.stageTimes.push(this.now()); j.stage++; this.audit(db, 'Completed stage', id, o, STAGES[j.stage][0]); this.notify(db, STAGE_OWNER[j.stage], id + ' moved to ' + STAGES[j.stage][0] + ' — your stage', 'ph-flow-arrow', null, id); }, this.t('saved')); }
+  createTask() {
+    const n = this.state.nt; if (!n.title.trim() || !n.assignee) return;
+    const [hh, mm] = n.time.split(':').map(Number); const due = at(hh, mm, n.day === 'today' ? 0 : 1);
+    let newId;
+    this.mut(db => { const num = Math.max(...db.tasks.map(x => +x.id.slice(2))) + 1; newId = 'T-' + num; const now = this.now();
+      db.tasks.unshift({ id: newId, title: n.title.trim(), desc: n.desc, job: n.job || null, prio: n.prio, assignee: n.assignee, by: this.state.user, createdAt: now, due, status: 'todo', progress: 0, revisions: 0, approval: n.approval, dept: PEOPLE[n.assignee].dept, comments: [], files: [], block: null,
+        history: [{ at: now, text: 'Task created by ' + nm(this.state.user), by: this.state.user }, { at: now, text: 'Assigned to ' + nm(n.assignee), by: this.state.user }] });
+      this.notify(db, n.assignee, nm(this.state.user) + ' assigned you ' + newId + ' · ' + n.title.trim() + ' (' + n.prio + ')', 'ph-clipboard-text', newId);
+      this.audit(db, 'Created task', newId, '', nm(n.assignee)); }, this.t('assign') + ' ✓');
+    this.set({ nt: { title: '', desc: '', assignee: '', job: '', prio: 'NORMAL', day: 'today', time: '17:00', approval: true } }); this.back();
+  }
+  exportXls() {
+    const s = this.state, db = s.db, u = PEOPLE[s.user], mg = this.isMgmt();
+    const esc = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const dt = ts => ts ? new Date(ts).toLocaleString('en-IN') : '';
+    const sheet = (name, rows) => `<Worksheet ss:Name="${name}"><Table>${rows.map((r, i) => `<Row>${r.map(c => `<Cell${i === 0 ? ' ss:StyleID="h"' : ''}><Data ss:Type="${typeof c === 'number' ? 'Number' : 'String'}">${esc(c)}</Data></Cell>`).join('')}</Row>`).join('')}</Table></Worksheet>`;
+    const tasks = this.scopeTasks(); const now = this.now();
+    const emps = Object.entries(PEOPLE).filter(([k, p]) => u.role === 'director' || (u.role === 'head' ? u.scope.includes(p.dept) : k === s.user));
+    let out = sheet('Employees', [['Employee ID', 'Name', 'Department', 'Designation', 'Role', 'Manager', 'Joined', 'Status', 'Open tasks', 'Overdue tasks'], ...emps.map(([k, p]) => { const t = db.tasks.filter(x => x.assignee === k); return [k, p.name, p.dept, p.desig, p.role, p.mgr ? nm(p.mgr) : '', p.joined, 'Active', t.filter(x => !['approved', 'rejected'].includes(x.status)).length, t.filter(x => this.isOverdue(x, now)).length]; })]);
+    out += sheet('Tasks', [['Task ID', 'Title', 'Job', 'Department', 'Assignee', 'Assigned by', 'Priority', 'Status', 'Progress %', 'Assigned at', 'Deadline', 'Submitted', 'Approved', 'Revisions', 'Blocker'], ...tasks.map(x => [x.id, x.title, x.job || '', x.dept, nm(x.assignee), nm(x.by), x.prio, x.status, x.progress, dt(x.createdAt), dt(x.due), dt(x.submittedAt), dt(x.approvedAt), x.revisions, x.block ? x.block.reason : ''])]);
+    out += sheet('Task history', [['Task ID', 'Time', 'Event', 'By'], ...tasks.flatMap(x => x.history.map(h => [x.id, dt(h.at), h.text, nm(h.by)]))]);
+    if (mg) {
+      out += sheet('Jobs', [['Job no.', 'Customer', 'PO', 'Product', 'Technology', 'Order qty', 'Produced', 'QC passed', 'QC rejected', 'Rework', 'Packed', 'Dispatched', 'Stage', 'Delivery'], ...db.jobs.map(j => [j.id, j.customer, j.po, j.product, j.tech, j.qty, j.produced, j.qcPassed, j.qcRejected, j.rework, j.packed, j.dispatched, STAGES[j.stage][0], dt(j.deliver)])]);
+      out += sheet('Daily reports', [['Employee', 'Submitted', 'Unfinished', 'Why', 'Tomorrow', 'Needs', 'Comments'], ...db.reports.map(r => [nm(r.by), dt(r.at), r.unfinished, r.why, r.tomorrow, r.help, r.extra])]);
+    }
+    if (u.role === 'director') out += sheet('Audit log', [['Time', 'User', 'Action', 'Record', 'Old value', 'New value'], ...db.audit.map(a => [dt(a.at), nm(a.by), a.action, a.record, a.old, a.nw])]);
+    const xml = `<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"><Styles><Style ss:ID="h"><Font ss:Bold="1"/><Interior ss:Color="#E4E7F5" ss:Pattern="Solid"/></Style></Styles>${out}</Workbook>`;
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([xml], { type: 'application/vnd.ms-excel' }));
+    a.download = 'GPS-Operations-' + (mg ? 'Register' : s.user) + '-' + new Date().toISOString().slice(0, 10) + '.xls'; document.body.appendChild(a); a.click(); a.remove();
+    this.mut(db2 => this.audit(db2, 'Exported Excel register', mg ? 'register' : s.user), this.t('saved'), 'ph-microsoft-excel-logo');
+  }
+
+  card(x, now) {
+    const db = this.state.db; const j = x.job ? db.jobs.find(y => y.id === x.job) : null; const od = this.isOverdue(x, now);
+    return { id: x.id, title: x.title, jobLine: j ? j.customer + ' · ' + j.id : this.t('internal'), due: (od ? this.t('overdue') + ' · ' : this.t('due') + ' ') + this.fmtDT(x.due), dueColor: od ? C.bad : C.muted, overdue: od,
+      prio: x.prio, prioColor: PRIO[x.prio], prioBg: mix(PRIO[x.prio]), status: this.t('st_' + x.status), statusColor: STC[x.status], statusBg: mix(STC[x.status]), pct: x.progress + '%', w: x.progress + '%',
+      who: nm(x.assignee), whoInit: initials(x.assignee), files: x.files.length, comments: x.comments.length, open: () => this.go('task', { taskId: x.id }) };
+  }
+  sortT(a, b, now) { return (this.isOverdue(b, now) - this.isOverdue(a, now)) || (PRANK[b.prio] - PRANK[a.prio]) || (a.due - b.due); }
+
+  renderVals() {
+    const s = this.state, db = s.db, now = this.now(), hi = s.lang === 'hi';
+    const t = {}; Object.keys(L).forEach(k => t[k] = L[k][hi ? 1 : 0]);
+    const u = s.user ? PEOPLE[s.user] : null; const mgmt = this.isMgmt();
+    const scr = s.user ? s.screen : (s.screen === 'mfa' ? 'mfa' : 'login');
+    const platform = this.props.platform || 'android'; const bare = !!this.props.bare; const variant = this.props.variant || 'focus';
+    const hr = new Date(now).getHours();
+    const greetWord = hr < 12 ? t.morningHi : hr < 17 ? t.afternoonHi : t.eveningHi;
+    const scope = this.scopeTasks();
+    const unread = u ? db.notifs.filter(n => n.to === s.user && !n.read).length : 0;
+    const awaitingList = u ? db.tasks.filter(x => x.status === 'submitted' && (u.role === 'director' || PEOPLE[x.assignee].mgr === s.user || (u.role === 'head' && u.scope.includes(x.dept)))) : [];
+    const V = {
+      t, clock: this.fmtT(now), isAndroid: platform !== 'ios' && !bare, isIos: platform === 'ios' && !bare, fW: bare ? '100%' : '380px', fH: bare ? '100%' : '800px', fPad: bare ? '0' : '8px', fRad: bare ? '0' : '48px', fShadow: bare ? 'none' : '0 0 0 1px #3f424d,0 30px 70px rgba(0,0,0,.55)', iW: bare ? '100%' : '364px', iH: bare ? '100%' : '784px', iRad: bare ? '0' : '40px', topPad: bare ? 'env(safe-area-inset-top)' : '0', gestureW: platform === 'ios' ? '128px' : '96px', showGesture: !bare, bareNav: bare, scrollRef: this.scrollRef,
+      isLogin: scr === 'login', isMfa: scr === 'mfa', isEmpHome: scr === 'home' && u && !mgmt, isMgmtHome: scr === 'home' && mgmt,
+      isTask: scr === 'task', isList: scr === 'list', isJobs: scr === 'jobs', isJob: scr === 'job', isQc: scr === 'qc', isApprovals: scr === 'approvals', isInbox: scr === 'inbox', isEod: scr === 'eod', isProfile: scr === 'profile', isNew: scr === 'newtask', isProof: scr === 'proof',
+      vLedger: variant === 'ledger', vFocus: variant === 'focus', vBoard: variant === 'board',
+      toggleLang: () => this.set({ lang: hi ? 'en' : 'hi' }), theme: s.theme, themeIcon: s.theme === 'dark' ? 'ph-sun' : 'ph-moon', toggleTheme: () => this.set({ theme: s.theme === 'dark' ? 'light' : 'dark' }), back: () => this.back(),
+      hasToast: !!s.toast, toast: s.toast || { text: '', icon: '' }, toastTop: bare ? '12px' : platform === 'ios' ? '52px' : '38px',
+      showNav: !!u && ['home', 'jobs', 'approvals', 'inbox', 'profile', 'list'].includes(scr),
+      unread, hasUnread: unread > 0, goInbox: () => this.go('inbox'),
+    };
+    // login
+    const locked = s.lockUntil > Date.now();
+    Object.assign(V, {
+      loginId: s.loginId, onLoginId: e => this.setState({ loginId: e.target.value, loginErr: '' }), loginPw: s.loginPw, onLoginPw: e => this.setState({ loginPw: e.target.value }),
+      onPwKey: e => { if (e.key === 'Enter') this.doLogin(); }, pwType: s.showPw ? 'text' : 'password', pwIcon: s.showPw ? 'ph-eye-slash' : 'ph-eye', togglePw: () => this.setState({ showPw: !s.showPw }),
+      rememberIcon: s.remember ? 'ph-check' : '', rememberBorder: s.remember ? 'var(--color-accent)' : 'var(--color-divider)', toggleRemember: () => this.setState({ remember: !s.remember }),
+      onForgot: () => this.flash(t.forgotMsg, 'ph-info', 5000), doLogin: () => this.doLogin(), loginDisabled: locked || s.busy,
+      loginLabel: locked ? t.locked + ' ' + Math.ceil((s.lockUntil - Date.now()) / 1000) + 's' : s.busy ? t.checking : t.login,
+      loginErr: locked ? t.locked + ' ' + Math.ceil((s.lockUntil - Date.now()) / 1000) + 's' : s.loginErr,
+      demoAccounts: [['GPS-E014', 'Rahul Verma · Employee'], ['GPS-H002', 'Sunita Rawat · Dept Head'], ['GPS-E030', 'Farhan Ali · QC']].map(([id, label]) => ({ id, label, fill: () => this.setState({ loginId: id, loginPw: 'demo1234', loginErr: '' }) })),
+      mfaPhone: s.pending ? PEOPLE[s.pending].phone : '', mfaInput: s.mfaInput, onMfa: e => this.setState({ mfaInput: e.target.value.replace(/\D/g, '').slice(0, 6), mfaErr: '' }), mfaErr: s.mfaErr, mfaFor: t.mfaFor,
+      doVerify: () => this.verifyMfa(), cancelMfa: () => this.setState({ screen: 'login', pending: null, toast: null }), resendMfa: () => { const c = String(Math.floor(100000 + Math.random() * 900000)); this.setState({ mfaCode: c }); this.flash(t.smsCode + ' ' + c, 'ph-chat-text', 9000); },
+    });
+    if (!u) return V;
+    // tabs
+    const tabDefs = mgmt ? [['home', 'ph-house', t.home], ['jobs', 'ph-stack', t.jobs], ['approvals', 'ph-seal-check', t.approvals, awaitingList.length], ['inbox', 'ph-bell', t.inbox, unread], ['profile', 'ph-user-circle', t.me]]
+      : [['home', 'ph-house', t.home], ['jobs', 'ph-stack', t.jobs], ['eod', 'ph-note-pencil', t.report], ['inbox', 'ph-bell', t.inbox, unread], ['profile', 'ph-user-circle', t.me]];
+    V.tabs = tabDefs.map(([k, ic, label, badge]) => ({ label, icon: (scr === k || (k === 'home' && scr === 'list') ? 'ph-fill ' : 'ph ') + ic, color: scr === k || (k === 'home' && scr === 'list') ? 'var(--color-accent-300)' : C.muted, hasBadge: !!badge, badge, onClick: () => k === 'eod' ? this.startEod() : this.tab(k) }));
+    V.dateStr = new Date(now).toLocaleDateString(hi ? 'hi-IN' : 'en-IN', { weekday: 'long', day: 'numeric', month: 'long' });
+    V.greet = greetWord + ', ' + first(s.user);
+    // employee home
+    const mine = db.tasks.filter(x => x.assignee === s.user && x.status !== 'rejected' && (x.status !== 'approved' || x.approvedAt >= T0));
+    const groups = { todo: ['todo', 'ack', 'correction'], progress: ['progress'], blocked: ['blocked'], submitted: ['submitted'], done: ['approved'] };
+    const colColor = { todo: C.a3, progress: C.acc, blocked: C.bad, submitted: C.warn, done: C.ok };
+    const inG = g => mine.filter(x => groups[g].includes(x.status)).sort((a, b) => this.sortT(a, b, now));
+    const openMine = mine.filter(x => !['approved', 'submitted'].includes(x.status));
+    V.empStats = [{ value: openMine.length, label: t.open, color: 'var(--color-text)' }, { value: openMine.filter(x => this.isOverdue(x, now)).length, label: t.overdueN, color: openMine.some(x => this.isOverdue(x, now)) ? C.bad : 'var(--color-text)' }, { value: inG('blocked').length, label: t.blockedN, color: inG('blocked').length ? C.warn : 'var(--color-text)' }];
+    V.filterChips = Object.keys(groups).map(g => { const on = s.filter === g; return { label: t['c_' + g], count: inG(g).length, onClick: () => this.set({ filter: g }), border: on ? 'var(--color-accent)' : 'var(--color-divider)', bg: on ? mix(C.acc, 14) : 'transparent', color: on ? 'var(--color-accent-200)' : 'var(--color-text)' }; });
+    V.ledgerTasks = inG(s.filter).map(x => this.card(x, now)); V.ledgerEmpty = !V.ledgerTasks.length;
+    V.boardCols = Object.keys(groups).map(g => { const cards = inG(g).map(x => this.card(x, now)); return { label: t['c_' + g], count: cards.length, color: colColor[g], cards, empty: !cards.length }; });
+    const actionable = mine.filter(x => ['todo', 'ack', 'correction', 'progress'].includes(x.status)).sort((a, b) => this.sortT(a, b, now));
+    const nx = actionable[0];
+    V.hasNext = !!nx; V.noNext = !nx;
+    V.next = nx ? this.card(nx, now) : { title: '', open: null };
+    const primaryFor = x => x.status === 'todo' ? { label: t.ack, icon: 'ph-hand-waving', onClick: () => this.act(x.id, 'ack') } : x.status === 'ack' ? { label: t.start, icon: 'ph-play', onClick: () => this.act(x.id, 'start') } : x.status === 'correction' ? { label: t.resume, icon: 'ph-arrow-counter-clockwise', onClick: () => this.act(x.id, 'start') } : { label: t.submit, icon: 'ph-paper-plane-tilt', onClick: () => this.act(x.id, 'submit') };
+    V.nextPrimary = nx ? primaryFor(nx) : { label: '', icon: '' };
+    const tools = x => [{ label: t.update, icon: 'ph-chart-line-up', onClick: () => this.set({ sheet: 'progress', sheetTask: x.id, progVal: x.progress }) }, { label: t.proof, icon: 'ph-camera', onClick: () => this.go('proof', { taskId: x.id, proofs: [] }) }, { label: t.blocker, icon: 'ph-hand', onClick: () => this.set({ sheet: 'blocker', sheetTask: x.id, blockReason: '', blockText: '' }) }];
+    V.nextHasTools = !!nx && nx.status === 'progress'; V.nextTools = nx ? tools(nx) : [];
+    V.otherTasks = mine.filter(x => x !== nx && x.status !== 'approved').sort((a, b) => this.sortT(a, b, now)).map(x => this.card(x, now));
+    V.deadlineList = mine.filter(x => !['approved', 'submitted'].includes(x.status)).sort((a, b) => a.due - b.due).slice(0, 5).map(x => { const od = this.isOverdue(x, now); const soon = !od && x.due - now < 2 * HR; return { time: od ? this.t('overdue') : this.dayOff(x.due) === 0 ? this.fmtT(x.due) : this.fmtDT(x.due), title: x.title, color: od ? C.bad : soon ? C.warn : 'var(--color-text)', border: od ? mix(C.bad, 55) : soon ? mix(C.warn, 45) : 'var(--color-divider)', open: () => this.go('task', { taskId: x.id }) }; });
+    const rep = db.reports.find(r => r.by === s.user && r.at >= T0);
+    V.eodSub = rep ? t.eodSent + ' ' + this.fmtT(rep.at) : t.eodDue; V.eodIcon = rep ? 'ph-check-circle' : 'ph-note-pencil'; V.eodColor = rep ? C.ok : 'var(--color-accent-300)'; V.eodBorder = rep ? mix(C.ok, 50) : 'var(--color-accent-700)';
+    V.goEod = () => this.startEod();
+    Object.assign(V, this.mgmtVals(t, now, scope, awaitingList), this.detailVals(t, now), this.otherVals(t, now, awaitingList));
+    return V;
+  }
+
+  mgmtVals(t, now, scope, awaitingList) {
+    const s = this.state, db = s.db, u = PEOPLE[s.user]; if (!this.isMgmt()) return {};
+    const active = scope.filter(x => !['approved', 'rejected'].includes(x.status));
+    const L2 = {
+      active, due: active.filter(x => this.dayOff(x.due) === 0), overdue: active.filter(x => this.isOverdue(x, now)), blocked: active.filter(x => x.status === 'blocked'),
+      awaiting: awaitingList, critical: active.filter(x => PRANK[x.prio] >= 3), completed: scope.filter(x => x.approvedAt >= T0),
+    };
+    this._lists = L2;
+    const jobsActive = db.jobs.filter(j => j.stage < 10); const dispatch = jobsActive.filter(j => j.deliver - now < 1.5 * DAY);
+    const tone = (k, n) => n && ['overdue', 'blocked'].includes(k) ? C.bad : n && ['awaiting', 'critical'].includes(k) ? C.warn : 'var(--color-text)';
+    const kpis = ['active', 'due', 'overdue', 'blocked', 'awaiting', 'critical', 'completed'].map(k => ({ label: t['k_' + k], value: L2[k].length, color: tone(k, L2[k].length), onClick: () => k === 'awaiting' ? this.go('approvals') : this.go('list', { listKey: k }) }));
+    kpis.push({ label: t.k_dispatch, value: dispatch.length, color: dispatch.length ? C.warn : 'var(--color-text)', onClick: () => this.go('jobs') });
+    const att = [];
+    L2.overdue.forEach(x => att.push({ sev: 3, icon: 'ph-clock-countdown', color: C.bad, title: x.id + ' · ' + x.title, sub: nm(x.assignee) + ' · ' + this.t('overdue') + ' ' + this.dur(now - x.due), onClick: () => this.go('task', { taskId: x.id }) }));
+    L2.blocked.forEach(x => att.push({ sev: now - x.block.at > 2 * HR ? 3 : 2, icon: 'ph-hand', color: C.bad, title: x.id + ' blocked ' + this.dur(now - x.block.at), sub: x.block.reason + ' · ' + nm(x.assignee), onClick: () => this.go('task', { taskId: x.id }) }));
+    db.jobs.filter(j => j.stage < 8 && j.deliver - now < 2 * DAY).forEach(j => att.push({ sev: 3, icon: 'ph-warning', color: C.warn, title: j.id + ' at risk', sub: j.customer + ' · ' + this.t('deliver') + ' ' + this.fmtDT(j.deliver) + ' · ' + STAGES[j.stage][s.lang === 'hi' ? 1 : 0], onClick: () => this.go('job', { jobId: j.id }) }));
+    if (awaitingList.length) att.push({ sev: 2, icon: 'ph-seal-check', color: C.warn, title: awaitingList.length + ' ' + t.k_awaiting.toLowerCase(), sub: awaitingList.map(x => x.id).join(', '), onClick: () => this.go('approvals') });
+    scope.filter(x => x.revisions >= 1 && x.status !== 'approved').forEach(x => att.push({ sev: 1, icon: 'ph-arrow-counter-clockwise', color: C.a3, title: x.id + ' reopened ' + x.revisions + '×', sub: x.title, onClick: () => this.go('task', { taskId: x.id }) }));
+    const people = Object.entries(PEOPLE).filter(([k, p]) => p.role === 'employee' && (u.role === 'director' || u.scope.includes(p.dept)));
+    const load = people.map(([k, p]) => { const o = active.filter(x => x.assignee === k); return { name: p.name, dept: p.dept, open: o.length, od: o.filter(x => this.isOverdue(x, now)).length, w: Math.min(100, o.length * 22) + '%', odColor: o.some(x => this.isOverdue(x, now)) ? C.bad : C.muted }; }).sort((a, b) => b.open - a.open);
+    load.filter(l => l.open >= 4).forEach(l => att.push({ sev: 1, icon: 'ph-stack', color: C.a3, title: l.name + ' has ' + l.open + ' open tasks', sub: l.dept, onClick: () => this.go('list', { listKey: 'active' }) }));
+    att.sort((a, b) => b.sev - a.sev);
+    const prodQ = jobsActive.reduce((a, j) => a + j.qty, 0), prodD = jobsActive.reduce((a, j) => a + j.produced, 0);
+    const evening = s.mgmtMode === 'evening';
+    return {
+      scopeLabel: u.role === 'director' ? 'Green Printing Solution · ' + t.control : u.scope.join(' & ') + ' · ' + t.control,
+      mgmtTitle: evening ? t.evening + ' — ' + t.gmOps : (u.role === 'director' ? t.morningHi + ' — ' + t.gmOps : t.morningHi + ', ' + first(s.user)),
+      isMorning: !evening, isEvening: evening,
+      modeOpts: [['morning', t.morning], ['evening', t.evening]].map(([k, l]) => ({ label: l, onClick: () => this.set({ mgmtMode: k }), bg: s.mgmtMode === k ? mix(C.acc, 16) : 'transparent', color: s.mgmtMode === k ? 'var(--color-accent-200)' : C.muted })),
+      kpis, attention: att.slice(0, evening ? 4 : 6), attEmpty: !att.length, load, goNew: () => this.go('newtask'),
+      eveRows: [[t.e_planned, L2.due.length + L2.completed.filter(x => this.dayOff(x.due) === 0).length], [t.e_done, L2.completed.length], [t.e_notdone, L2.due.length], [t.e_delayed, L2.overdue.length], [t.e_blocked, L2.blocked.length], [t.e_awaiting, awaitingList.length]].map(([k, v]) => ({ k, v })),
+      eveProd: prodD.toLocaleString('en-IN') + ' / ' + prodQ.toLocaleString('en-IN'), eveProdW: Math.round(prodD / prodQ * 100) + '%',
+      eveDispatch: dispatch.map(j => ({ id: j.id, customer: j.customer, when: this.fmtDT(j.deliver), stage: STAGES[j.stage][s.lang === 'hi' ? 1 : 0], color: j.stage >= 8 ? C.ok : C.warn, onClick: () => this.go('job', { jobId: j.id }) })),
+    };
+  }
+
+  detailVals(t, now) {
+    const s = this.state, db = s.db; const x = this.task(db, s.taskId); if (!x) return {};
+    const me = s.user, mine = x.assignee === me, man = this.canManage(x), c = this.card(x, now), hi = s.lang === 'hi';
+    const acts = []; let note = '';
+    if (mine) {
+      if (x.status === 'todo') acts.push({ label: t.ack, icon: 'ph-hand-waving', primary: true, onClick: () => this.act(x.id, 'ack') });
+      if (x.status === 'ack') acts.push({ label: t.start, icon: 'ph-play', primary: true, onClick: () => this.act(x.id, 'start') });
+      if (x.status === 'correction') acts.push({ label: t.resume, icon: 'ph-arrow-counter-clockwise', primary: true, onClick: () => this.act(x.id, 'start') });
+      if (x.status === 'progress') acts.push({ label: t.submit, icon: 'ph-paper-plane-tilt', primary: true, onClick: () => this.act(x.id, 'submit') }, { label: t.updateLong, icon: 'ph-chart-line-up', onClick: () => this.set({ sheet: 'progress', sheetTask: x.id, progVal: x.progress }) }, { label: t.proofLong, icon: 'ph-camera', onClick: () => this.go('proof', { taskId: x.id, proofs: [] }) }, { label: t.blockerLong, icon: 'ph-hand', onClick: () => this.set({ sheet: 'blocker', sheetTask: x.id, blockReason: '', blockText: '' }) });
+      if (x.status === 'blocked') note = t.blockedNote; if (x.status === 'submitted') note = t.waitingReview; if (x.status === 'approved') note = t.approvedNote;
+    }
+    if (man && !mine) {
+      if (x.status === 'submitted') acts.push({ label: t.approve, icon: 'ph-check', primary: true, onClick: () => this.act(x.id, 'approve') }, { label: t.correctionLong, icon: 'ph-arrow-counter-clockwise', onClick: () => this.set({ sheet: 'review', sheetTask: x.id, reviewKind: 'correction', reviewText: '' }) }, { label: t.reject, icon: 'ph-x', onClick: () => this.set({ sheet: 'review', sheetTask: x.id, reviewKind: 'reject', reviewText: '' }) });
+      if (x.status === 'blocked') acts.push({ label: t.resolve, icon: 'ph-lock-open', primary: true, onClick: () => this.act(x.id, 'resolve') });
+      if (['todo', 'ack', 'progress', 'correction', 'blocked'].includes(x.status)) acts.push({ label: t.requestUpdate, icon: 'ph-bell-ringing', onClick: () => this.act(x.id, 'nudge') });
+    }
+    const acts2 = acts.map(a => ({ ...a, border: a.primary ? 'var(--color-accent)' : 'var(--color-divider)', color: a.primary ? 'var(--color-accent-100)' : 'var(--color-text)', bg: a.primary ? mix(C.acc, 10) : 'transparent', h: a.primary ? '52px' : '46px', span: a.primary ? '1 / -1' : 'auto' }));
+    const j = x.job ? db.jobs.find(y => y.id === x.job) : null;
+    let lastDay = null;
+    return {
+      tk: { ...c, desc: x.desc || '', dept: x.dept, revLabel: x.revisions ? x.revisions + ' ' + t.revisions : '', hasRev: x.revisions > 0 },
+      tkMeta: [[t.owner, nm(x.assignee)], [t.assignedBy, nm(x.by)], [t.assignedAt, this.fmtDT(x.createdAt)], [t.deadline, this.fmtDT(x.due)]].map(([k, v]) => ({ k, v })),
+      tkHasJob: !!j, tkJob: j ? j.customer + ' · ' + j.id + ' · ' + j.tech : '', openTkJob: () => j && this.go('job', { jobId: j.id }),
+      tkBlocked: x.status === 'blocked' && !!x.block, tkBlock: x.block ? { reason: hi ? (BLOCK_REASONS.find(r => r[0] === x.block.reason) || [0, x.block.reason])[1] : x.block.reason, text: x.block.text, since: t.blockedSince + ' ' + this.fmtDT(x.block.at) + ' · ' + this.dur(now - x.block.at) } : {},
+      tkActs: acts2, tkHasActs: acts2.length > 0, tkNote: note, tkHasNote: !!note,
+      tkFiles: x.files.map(f => ({ name: f.name, meta: nm(f.by) + ' · ' + this.fmtDT(f.at), url: f.url || '', hasImg: !!f.url, noImg: !f.url, icon: /\.pdf$/i.test(f.name) ? 'ph-file-pdf' : /\.(png|jpe?g|webp)$/i.test(f.name) ? 'ph-image' : 'ph-file' })), tkHasFiles: x.files.length > 0,
+      tkComments: x.comments.map(cm => ({ who: nm(cm.by), init: initials(cm.by), when: this.fmtDT(cm.at), text: cm.text })),
+      comment: s.comment, onComment: e => this.setState({ comment: e.target.value }), sendComment: () => this.addComment(), onCommentKey: e => { if (e.key === 'Enter') this.addComment(); },
+      tkTimeline: x.history.slice().sort((a, b) => a.at - b.at).map((h, i, arr) => { const d = this.dayOff(h.at); const show = d !== lastDay; lastDay = d; return { time: this.fmtT(h.at), day: d === 0 ? t.today : d === -1 ? t.yesterday : new Date(h.at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }), showDay: show, text: h.text, by: nm(h.by), dot: /blocked|Reason/i.test(h.text) ? C.bad : /Approved/.test(h.text) ? C.ok : /Correction|Rejected/.test(h.text) ? C.warn : /Submitted/.test(h.text) ? C.warn : C.acc, line: i === arr.length - 1 ? 'transparent' : 'var(--line)' }; }),
+    };
+  }
+
+  otherVals(t, now, awaitingList) {
+    const s = this.state, db = s.db, u = PEOPLE[s.user], hi = s.lang === 'hi', mgmt = this.isMgmt(); const V = {};
+    // list
+    const lists = this._lists || {}; const lk = s.listKey;
+    V.listTitle = t['k_' + lk] || ''; V.listCards = (lists[lk] || []).slice().sort((a, b) => this.sortT(a, b, now)).map(x => this.card(x, now)); V.listEmpty = !V.listCards.length;
+    // jobs
+    const myJobs = mgmt ? db.jobs : db.jobs.filter(j => db.tasks.some(x => x.assignee === s.user && x.job === j.id) || STAGE_OWNER[j.stage] === s.user);
+    V.jobCards = myJobs.slice().sort((a, b) => a.deliver - b.deliver).map(j => { const risk = j.stage < 8 && j.deliver - now < 2 * DAY; const pct = Math.round(j.produced / j.qty * 100);
+      return { id: j.id, customer: j.customer, tech: j.tech, stage: t.stage + ' ' + (j.stage + 1) + '/11 · ' + STAGES[j.stage][hi ? 1 : 0], deliver: t.deliver + ' ' + this.fmtDT(j.deliver), pctLabel: j.produced.toLocaleString('en-IN') + ' / ' + j.qty.toLocaleString('en-IN'), pct: pct + '%', w: pct + '%', riskLabel: risk ? t.atRisk : t.onTrack, riskColor: risk ? C.warn : C.ok, riskBg: mix(risk ? C.warn : C.ok, 16), segs: STAGES.map((_, i) => ({ c: i < j.stage ? C.acc : i === j.stage ? 'var(--color-accent-300)' : 'var(--line)' })), onClick: () => this.go('job', { jobId: j.id }) }; });
+    V.jobsCount = myJobs.length;
+    // job detail
+    const j = db.jobs.find(y => y.id === s.jobId);
+    if (j) {
+      const row = (label, v, c) => ({ label, val: v.toLocaleString('en-IN'), pct: Math.round(v / j.qty * 100) + '%', w: Math.min(100, v / j.qty * 100) + '%', c });
+      V.jb = { id: j.id, customer: j.customer, brand: j.brand, po: j.po, product: j.product, tech: j.tech, qty: j.qty.toLocaleString('en-IN'), deliver: this.fmtDT(j.deliver), notes: j.notes, mgr: nm(j.mgr), stageName: STAGES[j.stage][hi ? 1 : 0] };
+      V.jbFacts = [['PO', j.po], [t.deliver, this.fmtDT(j.deliver)], ['Qty', j.qty.toLocaleString('en-IN')], [t.mgrL, nm(j.mgr)]].map(([k, v]) => ({ k, v }));
+      V.jbRows = [row(t.produced, j.produced, C.acc), row(t.qcPassed, j.qcPassed, C.ok), row(t.qcRejected, j.qcRejected, C.bad), row(t.rework, j.rework, C.warn), row(t.packed, j.packed, C.a3), row(t.dispatched, j.dispatched, C.a3)];
+      V.jbStages = STAGES.map((st, i) => { const done = i < j.stage, cur = i === j.stage; return { name: st[hi ? 1 : 0], owner: nm(STAGE_OWNER[i]), time: done ? '✓ ' + this.fmtDT(j.stageTimes[i]) : cur ? t.started + ' ' + this.fmtDT(j.stageTimes[i - 1] || now) : '', dotBg: done ? C.acc : 'transparent', dotBorder: done || cur ? C.acc : 'var(--line2)', glow: cur ? '0 0 0 4px ' + mix(C.acc, 25) : 'none', nameColor: i > j.stage ? C.muted : 'var(--color-text)', weight: cur ? '500' : '400', line: i === 10 ? 'transparent' : done ? C.acc : 'var(--line)' }; });
+      V.jbCanQc = mgmt || u.dept === 'Quality Control'; V.jbCanAdvance = mgmt && j.stage < 10;
+      V.goQc = () => this.go('qc'); V.advance = () => this.advanceStage();
+      V.jbQc = j.qcLog.map(q => ({ line: q.checked + ' checked · ' + q.passed + ' passed · ' + q.rejected + ' rejected', meta: nm(q.by) + ' · ' + this.fmtDT(q.at) + ' · ' + q.defect + (q.rework ? ' · rework' : ''), action: q.action || '' })); V.jbHasQc = j.qcLog.length > 0;
+      V.jbTasks = db.tasks.filter(x => x.job === j.id && (mgmt || x.assignee === s.user)).map(x => this.card(x, now));
+    }
+    // qc
+    const q = s.qc; const setQ = p => this.set({ qc: { ...this.state.qc, ...p } });
+    const rj = q.checked !== '' && q.passed !== '' ? Math.max(0, +q.checked - +q.passed) : '';
+    V.qc = q; V.qcRejected = rj === '' ? '—' : String(rj); V.qcInvalid = q.passed !== '' && +q.passed > +q.checked;
+    V.onQcChecked = e => setQ({ checked: e.target.value.replace(/\D/g, '') }); V.onQcPassed = e => setQ({ passed: e.target.value.replace(/\D/g, '') });
+    V.onQcReason = e => setQ({ reason: e.target.value }); V.onQcAction = e => setQ({ action: e.target.value });
+    V.qcDefects = DEFECTS.map(d => ({ label: d[hi ? 1 : 0], onClick: () => setQ({ defect: d[0] }), border: q.defect === d[0] ? 'var(--color-accent)' : 'var(--color-divider)', color: q.defect === d[0] ? 'var(--color-accent-200)' : 'var(--color-text)', bg: q.defect === d[0] ? mix(C.acc, 14) : 'transparent' }));
+    V.qcReworkToggle = () => setQ({ rework: !q.rework }); V.qcReworkBg = q.rework ? C.acc : 'var(--line)'; V.qcReworkX = q.rework ? '20px' : '2px';
+    V.onQcPhoto = e => { const f = e.target.files && e.target.files[0]; if (f) setQ({ photo: URL.createObjectURL(f) }); }; V.qcHasPhoto = !!q.photo; V.qcNoPhoto = !q.photo; V.qcPhoto = q.photo || '';
+    V.saveQc = () => this.saveQc(); V.qcReady = !!(+q.checked) && q.passed !== '' && !V.qcInvalid; V.qcBtnOpacity = V.qcReady ? '1' : '.45';
+    // approvals
+    V.apprCards = awaitingList.slice().sort((a, b) => (a.submittedAt || 0) - (b.submittedAt || 0)).map(x => ({ ...this.card(x, now), sub: t.submittedAt + ' ' + this.fmtDT(x.submittedAt || x.createdAt) + ' · ' + this.dur(now - (x.submittedAt || x.createdAt)), filesN: x.files.length + ' ' + t.files, rev: x.revisions ? x.revisions + ' ' + t.revisions : '', hasRev: x.revisions > 0,
+      approve: () => this.act(x.id, 'approve'), correct: () => this.set({ sheet: 'review', sheetTask: x.id, reviewKind: 'correction', reviewText: '' }), reject: () => this.set({ sheet: 'review', sheetTask: x.id, reviewKind: 'reject', reviewText: '' }) }));
+    V.apprEmpty = !V.apprCards.length;
+    // inbox
+    V.inboxOpts = [['alerts', t.alerts], ['anns', t.announcements]].map(([k, l]) => ({ label: l, onClick: () => this.set({ inboxTab: k }), bg: s.inboxTab === k ? mix(C.acc, 16) : 'transparent', color: s.inboxTab === k ? 'var(--color-accent-200)' : C.muted }));
+    V.inAlerts = s.inboxTab === 'alerts'; V.inAnns = s.inboxTab !== 'alerts';
+    V.notifs = db.notifs.filter(n => n.to === s.user).sort((a, b) => b.at - a.at).map(n => ({ text: n.text, when: this.fmtDT(n.at), icon: n.icon || 'ph-bell', dot: n.read ? 'transparent' : C.acc, weight: n.read ? '400' : '500', onClick: () => { this.mut(db2 => { const m = db2.notifs.find(y => y.id === n.id); if (m) m.read = true; }); if (n.ref) this.go('task', { taskId: n.ref }); else if (n.job) this.go('job', { jobId: n.job }); } }));
+    V.notifEmpty = !V.notifs.length; V.markAll = () => this.mut(db2 => db2.notifs.forEach(n => { if (n.to === s.user) n.read = true; }));
+    const staff = Object.keys(PEOPLE).filter(k => k !== 'pradkum3639').length;
+    V.anns = db.anns.map(a => { const mineAck = a.acks[s.user]; const n = Object.keys(a.acks).length; return { title: a.title, body: a.body, meta: nm(a.by) + ' · ' + this.fmtDT(a.at), urgent: a.urgent, border: a.urgent ? mix(C.warn, 50) : 'var(--line)', canAck: !mineAck && a.by !== s.user, acked: !!mineAck, ackText: t.acknowledged + ' ' + (mineAck ? this.fmtDT(mineAck) : ''), showCount: mgmt, count: n + ' / ' + staff + ' ' + t.ackBy, countW: Math.round(n / staff * 100) + '%',
+      ack: () => this.mut(db2 => { const x = db2.anns.find(y => y.id === a.id); x.acks[s.user] = this.now(); this.audit(db2, 'Acknowledged announcement', a.id); }, t.acknowledged) }; });
+    // eod
+    const sm = this.eodSummary(); const e = s.eod || {};
+    V.eodStats = [[t.s_assigned, sm.assigned], [t.s_started, sm.started], [t.s_submitted, sm.submitted], [t.s_approved, sm.approved], [t.s_pending, sm.pending], [t.s_blocked, sm.blocked]].map(([k, v]) => ({ k, v }));
+    const setE = k => ev => this.set({ eod: { ...this.state.eod, [k]: ev.target.value } });
+    V.eodQs = [['unfinished', t.q_unfinished], ['why', t.q_why], ['tomorrow', t.q_tomorrow], ['help', t.q_help], ['extra', t.q_extra]].map(([k, l]) => ({ label: l, value: e[k] || '', onChange: setE(k) }));
+    V.submitEod = () => this.submitEod(); V.eodName = u.name + ' · ' + u.dept; V.eodDate = new Date(now).toLocaleDateString(hi ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+    // profile
+    const statT = u.role === 'employee' ? db.tasks.filter(x => x.assignee === s.user) : this.scopeTasks();
+    const done = statT.filter(x => x.approvedAt); const onTime = done.filter(x => x.approvedAt <= x.due || (x.submittedAt && x.submittedAt <= x.due));
+    const blockedMs = statT.filter(x => x.block).reduce((a, x) => a + ((x.block.resolvedAt || now) - x.block.at), 0);
+    V.pf = { name: u.name, init: initials(s.user), desig: u.desig, id: s.user, scopeNote: u.role === 'employee' ? t.factsNote : (u.role === 'director' ? 'Company-wide' : u.scope.join(' & ')) + ' · ' + t.factsNote };
+    V.pfRows = [[t.empIdL, s.user], [t.deptL, u.dept], [t.mgrL, u.mgr ? nm(u.mgr) : '—'], [t.joinedL, u.joined], [t.statusL, t.active]].map(([k, v]) => ({ k, v }));
+    V.pfStats = [[t.p_assigned, statT.length], [t.p_completed, done.length], [t.p_ontime, done.length ? Math.round(onTime.length / done.length * 100) + '%' : '—'], [t.p_overdue, statT.filter(x => this.isOverdue(x, now)).length], [t.p_rework, statT.reduce((a, x) => a + x.revisions, 0)], [t.p_blocked, this.dur(blockedMs)]].map(([k, v]) => ({ k, v }));
+    V.langOpts = [['en', 'English'], ['hi', 'हिंदी']].map(([k, l]) => ({ label: l, onClick: () => this.set({ lang: k }), bg: s.lang === k ? mix(C.acc, 16) : 'transparent', color: s.lang === k ? 'var(--color-accent-200)' : C.muted }));
+    V.themeOpts = [['dark', t.dark, 'ph-moon'], ['light', t.light, 'ph-sun']].map(([k, l, ic]) => ({ label: l, icon: ic, onClick: () => this.set({ theme: k }), bg: s.theme === k ? mix(C.acc, 16) : 'transparent', color: s.theme === k ? 'var(--color-accent-200)' : C.muted }));
+    V.exportLabel = mgmt ? t.exportX : t.exportMine; V.exportSub = mgmt ? t.exportSub : 'Tasks + task history'; V.doExport = () => this.exportXls();
+    V.sessions = [{ device: 'Android · Chrome', where: 'Noida, UP · ' + t.thisDevice, icon: 'ph-device-mobile', current: true }, { device: 'Windows · Edge', where: 'Office desktop · ' + this.fmtDT(at(18, 40, -1)), icon: 'ph-desktop', current: false }];
+    V.signOutOthers = () => this.mut(db2 => this.audit(db2, 'Signed out other devices', 'session'), t.saved);
+    V.isDirector = u.role === 'director';
+    V.auditRows = db.audit.slice(0, 6).map(a => ({ line: nm(a.by) + ' · ' + a.action + ' · ' + a.record, sub: this.fmtDT(a.at) + (a.old || a.nw ? ' · ' + (a.old || '∅') + ' → ' + (a.nw || '∅') : '') }));
+    V.doLogout = () => this.logout();
+    // new task
+    const n = s.nt; const setN = p => this.set({ nt: { ...this.state.nt, ...p } });
+    V.nt = n; V.onNtTitle = e => setN({ title: e.target.value }); V.onNtDesc = e => setN({ desc: e.target.value }); V.onNtAssignee = e => setN({ assignee: e.target.value }); V.onNtJob = e => setN({ job: e.target.value }); V.onNtTime = e => setN({ time: e.target.value });
+    V.ntPeople = Object.entries(PEOPLE).filter(([k, p]) => p.role === 'employee' && (u.role === 'director' || (u.scope || []).includes(p.dept))).map(([k, p]) => ({ id: k, label: p.name + ' — ' + p.desig }));
+    V.ntJobs = db.jobs.map(j2 => ({ id: j2.id, label: j2.id + ' · ' + j2.customer }));
+    V.ntPrios = Object.keys(PRIO).map(p => ({ label: p, onClick: () => setN({ prio: p }), border: n.prio === p ? PRIO[p] : 'var(--color-divider)', color: n.prio === p ? PRIO[p] : C.muted, bg: n.prio === p ? mix(PRIO[p], 14) : 'transparent' }));
+    V.ntDays = [['today', t.today], ['tomorrow', t.tomorrow]].map(([k, l]) => ({ label: l, onClick: () => setN({ day: k }), bg: n.day === k ? mix(C.acc, 16) : 'transparent', color: n.day === k ? 'var(--color-accent-200)' : C.muted }));
+    V.ntApprovalToggle = () => setN({ approval: !n.approval }); V.ntApprBg = n.approval ? C.acc : 'var(--line)'; V.ntApprX = n.approval ? '20px' : '2px';
+    V.ntReady = !!n.title.trim() && !!n.assignee; V.ntOpacity = V.ntReady ? '1' : '.45'; V.createTask = () => this.createTask();
+    // proof
+    const pt = this.task(db, s.taskId);
+    V.proofTask = pt ? pt.id + ' · ' + pt.title : ''; V.proofs = s.proofs.map((p, i) => ({ ...p, hasImg: !!p.url, noImg: !p.url, remove: () => this.set({ proofs: this.state.proofs.filter((_, k) => k !== i) }) }));
+    V.hasProofs = s.proofs.length > 0; V.onFiles = e => this.onFiles(e); V.proofNote = s.proofNote; V.onProofNote = e => this.setState({ proofNote: e.target.value }); V.saveProofs = () => this.saveProofs(); V.proofOpacity = s.proofs.length ? '1' : '.45';
+    // sheets
+    V.sheetOpen = !!s.sheet; V.closeSheet = () => this.set({ sheet: null });
+    V.isBlockSheet = s.sheet === 'blocker'; V.isProgSheet = s.sheet === 'progress'; V.isReviewSheet = s.sheet === 'review';
+    const stk = this.task(db, s.sheetTask); V.sheetTaskName = stk ? stk.id + ' · ' + stk.title : '';
+    V.blockReasons = BLOCK_REASONS.map(r => ({ label: r[hi ? 1 : 0], onClick: () => this.setState({ blockReason: r[0] }), border: s.blockReason === r[0] ? C.bad : 'var(--color-divider)', color: s.blockReason === r[0] ? 'var(--bad-text)' : 'var(--color-text)', bg: s.blockReason === r[0] ? mix(C.bad, 14) : 'transparent' }));
+    V.blockText = s.blockText; V.onBlockText = e => this.setState({ blockText: e.target.value }); V.saveBlock = () => this.saveBlock(); V.blockOpacity = s.blockReason && s.blockText.trim().length >= 5 ? '1' : '.45';
+    V.progVal = s.progVal; V.progLabel = s.progVal + '%'; V.onProg = e => this.setState({ progVal: +e.target.value }); V.progW = s.progVal + '%';
+    V.progQuick = [25, 50, 75, 90].map(v => ({ label: v + '%', onClick: () => this.setState({ progVal: v }), border: s.progVal === v ? 'var(--color-accent)' : 'var(--color-divider)' }));
+    V.saveProgress = () => this.saveProgress();
+    V.reviewTitle = s.reviewKind === 'correction' ? t.correctionLong : t.confirmReject; V.reviewBtn = s.reviewKind === 'correction' ? t.sendBack : t.confirmReject; V.reviewText = s.reviewText; V.onReview = e => this.setState({ reviewText: e.target.value }); V.saveReview = () => this.saveReview(); V.reviewOpacity = s.reviewText.trim().length >= 3 ? '1' : '.45';
+    V.reviewColor = s.reviewKind === 'correction' ? C.warn : C.bad;
+    return V;
+  }
+}
+</script>
+</body>
+</html>
